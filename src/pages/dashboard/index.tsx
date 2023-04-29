@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 const Index = () => {
   return (
         <div className="flex">
@@ -160,8 +160,8 @@ const Index = () => {
                                 </a>
                             </li>
                             <li className="rounded-sm">
-                                <a
-                                    href="#"
+                                <Link
+                                    to="/dashboard/pagebuilder"
                                     className="flex items-center p-2 space-x-3 rounded-md"
                                 >
                                     <svg
@@ -184,7 +184,7 @@ const Index = () => {
                                         />
                                     </svg>
                                     <span className="text-gray-100">Page Builder</span>
-                                </a>
+                                </Link>
                             </li>
                             <li className="rounded-sm">
                                 <a
