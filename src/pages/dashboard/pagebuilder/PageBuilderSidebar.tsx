@@ -1,9 +1,10 @@
 import React from 'react'
 import AddElementDrawer from './SideMenus/AddElementDrawer';
 
-const PageBuilderSidebar = () => {
+const PageBuilderSidebar = ({list, setList}: {list: string[], setList: any} ) => {
 
     const [isOpen, setIsOpen] = React.useState(false);
+
 
     return (
     <>
@@ -13,7 +14,7 @@ const PageBuilderSidebar = () => {
                     <path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" fill-rule="evenodd"></path>
                 </svg>
             </p>
-            <p className='flex justify-center cursor-pointer items-center mb-6  w-full'>
+            <p className='flex justify-center cursor-pointer items-center mb-6  w-full' onClick={()=> setList([...list, "Fight fire with fire"])}>
                 <svg className='w-7 h-7 text-zinc-900' aria-hidden="true" fill="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5.127 3.502L5.25 3.5h9.5c.041 0 .082 0 .123.002A2.251 2.251 0 0012.75 2h-5.5a2.25 2.25 0 00-2.123 1.502zM1 10.25A2.25 2.25 0 013.25 8h13.5A2.25 2.25 0 0119 10.25v5.5A2.25 2.25 0 0116.75 18H3.25A2.25 2.25 0 011 15.75v-5.5zM3.25 6.5c-.04 0-.082 0-.123.002A2.25 2.25 0 015.25 5h9.5c.98 0 1.814.627 2.123 1.502a3.819 3.819 0 00-.123-.002H3.25z"></path>
                 </svg>

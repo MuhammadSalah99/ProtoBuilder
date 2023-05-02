@@ -1,20 +1,8 @@
 import React, { useState } from 'react'
 
-const CanvasArea = () => {
+const CanvasArea = ({list, setList}: {list: string[], setList: any} ) => {
 
     const [dragItem, setDragItem] = useState(0)
-    const [list, setList] = useState([
-        "The Call Of Ktulu",
-        "For Whom The Bell Tolls",
-        "The Day That Never Comes",
-        "The Memory Remains",
-        "Confusion",
-        "Moth Into Flame",
-        "The Outlaw Torn",
-        "No Leaf Clover",
-        "Halo on Fire",
-    ]);
-
 
     const handleDragStart = (index: any) => {
         setDragItem(index);
@@ -31,20 +19,22 @@ const CanvasArea = () => {
 
 
     return (
-        <ul className="dnd">
-            {list &&
-                list.map((item, index) => (
-                    <li
-                        draggable="true"
-                        key={index}
-                        onDragStart={() => handleDragStart(index)}
-                        onDragEnter={(e) => handleDragEnter(e, index)}
-                        onDragOver={(e) => e.preventDefault()}
-                    >
-                        {item}
-                    </li>
-                ))}
-        </ul>
+        <div className='flex w-full bg-gray-100'>
+            <ul className="dnd">
+                {list &&
+                    list.map((item, index) => (
+                        <li
+                            draggable
+                            key={index}
+                            onDragStart={() => handleDragStart(index)}
+                            onDragEnter={(e) => handleDragEnter(e, index)}
+                            onDragOver={(e) => e.preventDefault()}
+                        >
+                            {item}
+                        </li>
+                    ))}
+            </ul>
+        </div>
     )
 }
 
