@@ -7,7 +7,7 @@ const PageBuilderSidebar = () => {
 
     return (
     <>
-        <aside className='absolute bg-white border-t flex-col h-screen  flex  top-0 left-0 z-40 w-[60px] h-screen transition-transform -translate-xfull shadow-lg pt-5'>
+        <aside className='absolute bg-white border-t flex-col  flex  top-0 left-0 z-40 w-[60px] h-2/3 transition-transform -translate-xfull shadow-lg pt-5'>
             <p className='flex justify-center  cursor-pointer items-center mb-6  w-full' onClick={() => setIsOpen(true)}>
                 <svg className={'w-9 h-9 ' + (isOpen ? "text-blue-700  " : "text-zinc-900")} aria-hidden="true" fill="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" fill-rule="evenodd"></path>
