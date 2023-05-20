@@ -26,7 +26,7 @@ const Register = () => {
         try {
             const response = await axios.post('http://localhost:8080/api/users/signup', userData);
             const token = response.data.token;
-
+            console.log(response)
             setUserToken(token);
             navigate('/dashboard')
 

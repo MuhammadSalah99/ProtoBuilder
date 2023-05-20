@@ -1,10 +1,9 @@
 import React, { useState, createContext } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-
-export const UserContext = createContext();
+import { useAuth } from '../../utils/AuthContext';
 const Login = () => {
-    const [userToken, setUserToken] = useState(null);
+    const { setUserToken } = useAuth()
     const [formData, setFormData] = useState({
         email: '',
         password: ''

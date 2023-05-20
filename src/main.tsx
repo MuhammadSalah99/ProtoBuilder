@@ -10,7 +10,10 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Index from './pages/dashboard/index'
-const router = createBrowserRouter([
+import { AuthProvider } from './utils/AuthContext.js'
+
+const routes = [
+
   {
     path: "/",
     element: <App />,
@@ -31,14 +34,16 @@ const router = createBrowserRouter([
       path: "/dashboard/pagebuilder",
       element: <PageBuilder />
     
-   }
-  
-]);
+}]
+
+const router = createBrowserRouter(routes );
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+         <RouterProvider router={router} />
+    </AuthProvider>
 
   </React.StrictMode>,
 )
