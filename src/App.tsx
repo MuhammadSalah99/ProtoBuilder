@@ -10,6 +10,7 @@ import Register from './pages/register/Register'
 import Index from './pages/dashboard'
 import PageBuilder from './pages/dashboard/pagebuilder/PageBuilder'
 import Home from './pages/home/Home'
+import PrivateRoute from './utils/priveRoute'
 function App() {
 
     const {user, setUser, logout } = useAuth()
@@ -30,7 +31,7 @@ function App() {
     },
     {
         path: "/dashboard",
-        element: <Index />
+        element: <PrivateRoute element={<Index/> } />
     },
     {
         path: "/dashboard/pagebuilder",
