@@ -20,7 +20,8 @@ const Login = () => {
             const response = await axios.post('http://localhost:8080/api/users/login', userData);
             const token = response.data.token; 
             navigate('/dashboard')
-            setUser(response.data)
+            console.log(response)
+            setUser({token: token, id: response.data.user.id, email: response.data.user.email, userName: response.data.user.userName})
             console.log(token)
         } catch (error) {
             console.error('Login failed:', error);
