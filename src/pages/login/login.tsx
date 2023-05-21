@@ -1,27 +1,28 @@
 import React, { useState, createContext } from 'react'
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../../utils/useAuth'
 import axios from 'axios';
-import { useAuth } from '../../utils/AuthContext';
 const Login = () => {
-    const { setUserToken } = useAuth()
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+    const { setUser } = useAuth()
     const navigate = useNavigate()
     const handleInputChange = (event: any) => {
         setFormData({
-            ...formData,
-            [event.target.name]: event.target.value
+            ...formData, [event.target.name]: event.target.value
         });
     };
 
     const loginUser = async (userData: any) => {
-        try { const response = await axios.post('http://localhost:8080/api/users/login', userData); const token = response.data.token;
-            setUserToken(token);
-            navigate('/dashboard') 
-            
-             } catch (error) {
+        try {
+            const response = await axios.post('http://localhost:8080/api/users/login', userData);
+            const token = response.data.token; 
+            navigate('/dashboard')
+            setUser(response.data)
+            console.log(token)
+        } catch (error) {
             console.error('Login failed:', error);
         }
     };

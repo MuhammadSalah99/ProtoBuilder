@@ -1,11 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../utils/useAuth'
 const Index = () => {
+    const { logout } = useAuth()
   return (
         <div className="flex">
             <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
                 <div className="space-y-3">
                     <div className="flex items-center">
+                        <p onClick={() => logout()}>Log out</p>
                         <h2 className="text-xl font-bold text-white">Dashboard</h2>
                     </div>
                     <div className="relative">

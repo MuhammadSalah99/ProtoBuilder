@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 
-export const UserContext = createContext();
 
 const Register = () => {
     const [userToken, setUserToken] = useState(null);
@@ -27,7 +26,6 @@ const Register = () => {
             const response = await axios.post('http://localhost:8080/api/users/signup', userData);
             const token = response.data.token;
             console.log(response)
-            setUserToken(token);
             navigate('/dashboard')
 
         } catch (error) {
@@ -41,7 +39,6 @@ const Register = () => {
         registerUser(formData);
     };
     return (
-        <UserContext.Provider value={userToken}>
             <section className="bg-gray-50 dark:bg-gray-900">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <Link to="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
@@ -92,7 +89,6 @@ const Register = () => {
                     </div>
                 </div>
             </section>
-        </UserContext.Provider>
     )
 }
 
