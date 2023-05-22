@@ -5,7 +5,7 @@ import { useAuth } from '../../utils/useAuth';
 
 
 const Register = () => {
-    const {user ,setUser }  = useAuth()
+    const { user, setUser } = useAuth()
     const [formData, setFormData] = useState({
         userName: '',
         email: '',
@@ -24,9 +24,14 @@ const Register = () => {
     const registerUser = async (userData: any) => {
         try {
             const response = await axios.post('http://localhost:8080/api/users/signup', userData);
-            const token = response.data.token;
-             setUser({ token: token, id: response.data.user.id, email: response.data.user.email, userName: response.data.user.userName })
-
+            setUser(
+                {
+                    id: response.data.user.id,
+                    name: response.data.user.userName,
+                    email: response.data.user.email,
+                    authToken: response.data.token
+                }
+            )
             console.log(response)
             navigate('/dashboard')
 
@@ -40,7 +45,7 @@ const Register = () => {
         event.preventDefault();
         registerUser(formData);
     };
-    
+
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

@@ -1,7 +1,7 @@
 import React, { useState, createContext } from 'react'
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from '../../utils/useAuth'
 import axios from 'axios';
+import { useAuth } from '../../utils/useAuth';
 const Login = () => {
     const [formData, setFormData] = useState({
         email: '',
@@ -18,11 +18,18 @@ const Login = () => {
     const loginUser = async (userData: any) => {
         try {
             const response = await axios.post('http://localhost:8080/api/users/login', userData);
-            const token = response.data.token; 
+            const token = response.data.token;
             navigate('/dashboard')
             console.log(response)
-            setUser({token: token, id: response.data.user.id, email: response.data.user.email, userName: response.data.user.userName})
             console.log(token)
+            setUser(
+                {
+                    id: response.data.user.id,
+                    name: response.data.user.userName,
+                    email: response.data.user.email,
+                    authToken: response.data.token
+                }
+            )
         } catch (error) {
             console.error('Login failed:', error);
         }

@@ -4,10 +4,12 @@ import { User } from "../utils/useUser";
 interface AuthContext {
   user: User | null;
   setUser: (user: User | null) => void;
+  removeUser: () => void
 }
 
 export const AuthContext = createContext<AuthContext>({
   user: null,
   setUser: () => {},
+    removeUser: () => {}
 });
 

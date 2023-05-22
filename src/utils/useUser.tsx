@@ -2,9 +2,8 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useLocalStorage } from "./useLocalStorage";
 
-// NOTE: optimally move this into a separate file
 export interface User {
-  id: string;
+  id: number;
   name: string;
   email: string;
   authToken?: string;
