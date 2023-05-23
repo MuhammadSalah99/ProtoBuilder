@@ -18,19 +18,12 @@ const Login = () => {
     const loginUser = async (userData: any) => {
         try {
             const response = await axios.post('http://localhost:8080/api/users/login', userData);
-            const token = response.data.token;
+            
             navigate('/dashboard')
-            console.log(response)
-            console.log(token)
-            setUser(
-                {
-                    id: response.data.user.id,
-                    name: response.data.user.userName,
-                    email: response.data.user.email,
-                    authToken: response.data.token
-                }
-            )
-        } catch (error) {
+            setUser(response.data)
+            console.log(response.data)
+           
+       } catch (error) {
             console.error('Login failed:', error);
         }
     };

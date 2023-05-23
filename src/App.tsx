@@ -11,9 +11,9 @@ import Index from './pages/dashboard'
 import PageBuilder from './pages/dashboard/pagebuilder/PageBuilder'
 import Home from './pages/home/Home'
 import PrivateRoute from './utils/priveRoute'
-import { useLocalStorage } from './utils/useLocalStorage'
+
 function App() {
-    const {value, setItem, getItem, removeItem} = useLocalStorage()
+   
 
     const {user, setUser, logout } = useAuth()
     useEffect(() => {

@@ -12,12 +12,11 @@ export const useAuth = () => {
       addUser(parsedUser);
       console.log(storedUser)
       console.log(parsedUser)
-              
     }
   }, []);
 
-  const setUser = (user: User) => {
-    addUser(user);
+  const setUser = (user3: User |  null ) => {
+    addUser(user3);
   };
 
   const logout = () => {

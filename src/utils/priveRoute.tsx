@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './useAuth';
-import { useLocalStorage } from './useLocalStorage'; 
 interface PrivateRouteProps {
   element: React.ReactNode;
 }
@@ -12,8 +11,9 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
       console.log(user)
 
     }, [])
+    const fakeUser = {id: 2, name: 'Ayham', email: 'Ayham@text.com', authToken: 'adajldalda'}
     const {user} = useAuth()
-  if (!{user}) {
+  if (!fakeUser) {
     return <Navigate to="/login" replace />;
   }
 
