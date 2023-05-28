@@ -11,14 +11,19 @@ import Index from './pages/dashboard'
 import PageBuilder from './pages/dashboard/pagebuilder/PageBuilder'
 import Home from './pages/home/Home'
 import PrivateRoute from './utils/priveRoute'
-
+import {User } from './utils/useUser'
+import { useLocalStorage } from './utils/useLocalStorage'
 function App() {
    
 
-    const {user, setUser, logout } = useAuth()
+    const [user, setUser] = useState<User | null > (null);
+    const { getItem } = useLocalStorage()
     useEffect(() => {
       console.log(user)
-
+      let parsedUser = JSON.parse(getItem('user')) as User
+        if(!user) {
+            setUser(parsedUser)
+        }
     }, [])
     const routes = [
 
@@ -47,7 +52,7 @@ function App() {
     const router = createBrowserRouter(routes)
 
     return (
-        <AuthContext.Provider value={{ user, setUser, logout }} >
+        <AuthContext.Provider value={{ user, setUser}} >
             <RouterProvider router={router} />
         </AuthContext.Provider>
     )

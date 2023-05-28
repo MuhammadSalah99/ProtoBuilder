@@ -1,29 +1,31 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect,  useState } from "react";
 import { useUser, User } from "./useUser";
 import { useLocalStorage } from "./useLocalStorage";
 
 export const useAuth = () => {
-  const { user, addUser, removeUser } = useUser();
-  const { getItem } = useLocalStorage();
-  useEffect(() => {
-    const storedUser = getItem("user");
-    if (storedUser) {
+    const { user, addUser, logout } = useUser();
+    const { getItem } = useLocalStorage();
+    const [userDet, setUserDet ] = useState<User>()
+    useEffect(() => {
+        const storedUser = getItem("user");
+        if (storedUser) {
             const parsedUser = JSON.parse(storedUser) as User; // Assuming User is the correct type
-      addUser(parsedUser);
-      console.log(storedUser)
-      console.log(parsedUser)
-    }
-  }, []);
+            addUser(parsedUser);
+            setUserDet(parsedUser)
+            console.log(storedUser)
+            console.log(userDet)
+        }
+    }, []);
 
-  const setUser = (user3: User |  null ) => {
-    addUser(user3);
-  };
+    const setUser = (user: User | null) => {
+        addUser(user);
+    };
 
-  const logout = () => {
-    removeUser();
-  };
+    const _logout = () => {
+        logout();
+    };
 
-  return { user, setUser, logout };
+    return { user, setUser, _logout };
 };
 
 

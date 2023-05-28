@@ -4,7 +4,7 @@ import { useLocalStorage } from "../utils//useLocalStorage";
 
 // NOTE: optimally move this into a separate file
 export interface User {
-  id: string;
+  id: number;
   name: string;
   email: string;
   authToken?: string;
