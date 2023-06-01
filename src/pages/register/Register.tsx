@@ -1,11 +1,13 @@
-import React, { useState, createContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useAuth } from '../../utils/useAuth';
-
+import { AuthContext } from '../../context/AuthContext';
+import { User, useUser } from "../../utils/useUser"
 
 const Register = () => {
-    const { user, setUser } = useAuth()
+    const { user, setUser } = useContext(AuthContext)
+    const { addUser } = useUser()
     const [formData, setFormData] = useState({
         userName: '',
         email: '',
@@ -19,16 +21,25 @@ const Register = () => {
             [event.target.name]: event.target.value
         });
     };
-
+    useEffect(() => {
+        if (user) {
+            navigate(`/${user.id}/dashboard`)
+        }
+    }, [],)
 
     const registerUser = async (userData: any) => {
         try {
+
             const response = await axios.post('http://localhost:8080/api/users/signup', userData);
-            setUser(
-                response.data
-            )
-            console.log(response)
-            navigate('/dashboard')
+            const userD: User = response.data
+            setUser(userD)
+            addUser(userD)
+            setTimeout(() => {
+
+                console.log(response)
+                navigate(`/${userD.id}/dashboard`)
+                navigate(0)
+            }, 500)
 
         } catch (error) {
             console.error('Registration failed:', error);

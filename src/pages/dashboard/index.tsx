@@ -1,16 +1,25 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../../utils/useAuth'
+import { AuthContext } from "../../context/AuthContext"
+import { useLocalStorage } from '../../utils/useLocalStorage'
 const Index = () => {
-    const { _logout } = useAuth()
-  return (
+    const { user, setUser } = useContext(AuthContext)
+    const { setItem } = useLocalStorage()
+    const logout = () => {
+        setUser(null)
+        setItem("user", "")
+    }
+
+
+    return (
         <div className="flex">
             <div className="flex flex-col h-screen p-3 bg-gray-800 shadow w-60">
                 <div className="space-y-3">
                     <div className="flex items-center">
-                        <p onClick={() => _logout}>Log out</p>
                         <h2 className="text-xl font-bold text-white">Dashboard</h2>
                     </div>
+
+                    <h1>{user ? user.name : ""}</h1>
                     <div className="relative">
                         <span className="absolute inset-y-0 left-0 flex items-center py-4">
                             <button
@@ -189,9 +198,9 @@ const Index = () => {
                                     <span className="text-gray-100">Page Builder</span>
                                 </Link>
                             </li>
-                            <li className="rounded-sm">
+                            <li className="rounded-sm cursor-pointer">
                                 <a
-                                    href="#"
+                                    onClick={() => logout()}
                                     className="flex items-center p-2 space-x-3 rounded-md"
                                 >
                                     <svg
@@ -244,8 +253,8 @@ const Index = () => {
                 </div>
             </div>
         </div>
-  
-  )
+
+    )
 }
 
 export default Index

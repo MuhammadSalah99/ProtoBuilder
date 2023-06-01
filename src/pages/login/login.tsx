@@ -1,33 +1,43 @@
-import React, { useState ,useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios';
-import { useAuth } from '../../utils/useAuth';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { User, useUser } from '../../utils/useUser';
 import { AuthContext } from '../../context/AuthContext';
-import { useLocalStorage } from '../../utils/useLocalStorage';
-useLocalStorage
 const Login = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
     const { addUser } = useUser()
-    const {user , setUser} = useContext(AuthContext)
+    const navigate = useNavigate()
+    const { user, setUser } = useContext(AuthContext)
     const handleInputChange = (event: any) => {
         setFormData({
             ...formData, [event.target.name]: event.target.value
         });
     };
 
+    useEffect(() => {
+        if (user) {
+            navigate(`/${user.id}/dashboard`)
+        }
+
+
+    }, [])
     const loginUser = async (userData: any) => {
         try {
             const response = await axios.post('http://localhost:8080/api/users/login', userData);
-           const userD: User = response.data
+            const userD: User = response.data
             addUser(userD)
             setUser(userD)
-            console.log(user)
+            setTimeout(() => {
+                console.log(user)
+                navigate(`/${userD.id}/dashboard`)
+                navigate(0)
+            }, 500)
 
-           
-       } catch (error) {
+
+        } catch (error) {
             console.error('Login failed:', error);
         }
     };
@@ -42,8 +52,8 @@ const Login = () => {
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        {user ? user.name: "hi" }
-                            Sign in to your accounti                         </h1>
+                            Sign in to your account
+                        </h1>
                         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit} action="#">
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
