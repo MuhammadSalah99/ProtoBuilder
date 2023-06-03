@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { useAuth } from '../../utils/useAuth';
 import { AuthContext } from '../../context/AuthContext';
 import { User, useUser } from "../../utils/useUser"
 
@@ -30,7 +29,7 @@ const Register = () => {
     const registerUser = async (userData: any) => {
         try {
 
-            const response = await axios.post('http://localhost:8080/api/users/signup', userData);
+            const response = await axios.post('https://nodeasaltask-production.up.railway.app/api/users/signup', userData);
             const userD: User = response.data
             setUser(userD)
             addUser(userD)
