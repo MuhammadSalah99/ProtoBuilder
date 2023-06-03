@@ -26,7 +26,7 @@ const Login = () => {
     }, [])
     const loginUser = async (userData: any) => {
         try {
-            const response = await axios.post('http://localhost:8080/api/users/login', userData);
+            const response = await axios.post('https://nodeasaltask-production.up.railway.app/api/users/login', userData);
             const userD: User = response.data
             addUser(userD)
             setUser(userD)
