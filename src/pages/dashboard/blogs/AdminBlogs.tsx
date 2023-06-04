@@ -17,6 +17,22 @@ const AdminBlogs = () => {
                 console.log(err)
             })
     }, [])
+    const deleteBlog = (id: number) => {
+        axios.delete(`https://nodeasaltask-production.up.railway.app/api/blogs/${id}`)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        let newBlogs = blogs.filter((blog) => {
+            if(blog.id != id) {
+                return true
+            }
+        })
+        setBlogs(newBlogs)
+
+    }
     return (
         <div className='flex'>
             <Navbar />
@@ -47,8 +63,9 @@ const AdminBlogs = () => {
                                     <td className="px-6 py-4">
                                         {blog.createdAt}
                                     </td>
-                                    <td className="px-6 py-4">
-                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    <td className="px-1 py-4 flex justify-around  items-start w-24">
+                                        <p className='font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer'>Edit</p>
+                                        <p onClick={() => deleteBlog(blog.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer">Delete</p>
                                     </td>
                                 </tr>
                             ))}
