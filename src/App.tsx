@@ -14,6 +14,7 @@ import PrivateRoute from './utils/priveRoute'
 import { User } from './utils/useUser'
 import { useLocalStorage } from './utils/useLocalStorage'
 import AdminBlogs from './pages/dashboard/blogs/AdminBlogs'
+import CreateBlog from './pages/dashboard/blogs/CreateBlog'
 function App() {
 
 
@@ -58,11 +59,17 @@ function App() {
             path: "/:id/dashboard/pagebuilder",
             element: <PrivateRoute element={<PageBuilder />} />
 
-        }, {
+        },
+        {
             path: "/:id/dashboard/blogs",
             element: <PrivateRoute element={<AdminBlogs />} />
 
-        }]
+        },
+        {
+            path: "/:id/dashboard/blogs/create",
+            element: <PrivateRoute element={<CreateBlog />} />
+        },
+    ]
 
     const router = createBrowserRouter(routes)
     if (isLoading) {
