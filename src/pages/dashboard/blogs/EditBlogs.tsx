@@ -1,12 +1,31 @@
+
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import Navbar from '../utility/navbar'
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-const CreateBlog = () => {
+
+const EditBlogs = () => {
+
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const { id } = useParams()
+    const { id, blogId } = useParams()
     const navigate = useNavigate()
+    useEffect(() => {
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/blogs/${blogId}`)
+            .then((res) => {
+                setTimeout(() => {
+                    console.log(res.data)
+                    setTitle(res.data.title)
+                    setContent(res.data.content)
+                }, 500)
+            })
+            .catch((err) => {
+                setTimeout(() => {
+                    console.log(err)
+                }, 500)
+            })
+
+    }, [])
     const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     };
@@ -17,11 +36,10 @@ const CreateBlog = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        axios.post('https://nodeasaltask-production.up.railway.app/api/blogs',
+        axios.put(`https://nodeasaltask-production.up.railway.app/api/blogs/${blogId}`,
             {
                 title: title,
                 content: content,
-                userId: id
             })
             .then((res) => {
                 console.log(res)
@@ -70,7 +88,6 @@ const CreateBlog = () => {
             </div>
         </div>
     )
-
 }
 
-export default CreateBlog
+export default EditBlogs

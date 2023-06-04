@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Navbar from '../utility/navbar'
 import axios from 'axios'
 const AdminBlogs = () => {
@@ -64,7 +64,7 @@ const AdminBlogs = () => {
                                         {blog.createdAt}
                                     </td>
                                     <td className="px-1 py-4 flex justify-around  items-start w-24">
-                                        <p className='font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer'>Edit</p>
+                                        <Link to={`${blog.id}/edit`} className='font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer'>Edit</Link>
                                         <p onClick={() => deleteBlog(blog.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer">Delete</p>
                                     </td>
                                 </tr>

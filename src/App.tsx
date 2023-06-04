@@ -15,6 +15,7 @@ import { User } from './utils/useUser'
 import { useLocalStorage } from './utils/useLocalStorage'
 import AdminBlogs from './pages/dashboard/blogs/AdminBlogs'
 import CreateBlog from './pages/dashboard/blogs/CreateBlog'
+import EditBlogs from './pages/dashboard/blogs/EditBlogs'
 function App() {
 
 
@@ -68,6 +69,10 @@ function App() {
         {
             path: "/:id/dashboard/blogs/create",
             element: <PrivateRoute element={<CreateBlog />} />
+        },
+        {
+            path: "/:id/dashboard/blogs/:blogId/edit",
+            element: <PrivateRoute element={<EditBlogs />} />
         },
     ]
 
