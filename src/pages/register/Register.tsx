@@ -10,7 +10,12 @@ const Register = () => {
     const [formData, setFormData] = useState({
         userName: '',
         email: '',
-        password: ''
+        password: '',
+        role: '',
+        major: '',
+        phone: '',
+        officeAddress: ""
+
     });
 
     const navigate = useNavigate()
@@ -53,7 +58,7 @@ const Register = () => {
     };
 
     return (
-        <section className="bg-gray-50 dark:bg-gray-900">
+        <section className="bg-gray-50 dark:bg-gray-900 h-full">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <Link to="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                     <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
@@ -91,9 +96,46 @@ const Register = () => {
                                     id="password"
                                     name="password"
                                     value={formData.password}
-                                    onChange={handleInputChange} name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                                    onChange={handleInputChange} placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
                             </div>
+                            <div>
+                                <label className="block  mb-3 text-sm font-medium text-gray-900 dark:text-white">You Are</label>
+                                <select id="roles" value={formData.role} name="role" onChange={handleInputChange} className="bg-gray-50 border   border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option>Client</option>
+                                    <option>Engineer</option>
+                                </select>
+                            </div>
+                            {formData.role == 'Engineer' ?
+                                <>
+                                    <div>
+                                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What's your major</label>
+                                        <select id="major" name="major" value={formData.major} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option>Civil Engineer</option>
+                                            <option>Architect</option>
+                                            <option>Carpenter</option>
+                                            <option>Internal Designer</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="phone number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                                        <input type="text"
+                                            id="phone"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="YourUsername" />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="officeAddress" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Office Address</label>
+                                        <input type="text"
+                                            id="officeAddress"
+                                            name="officeAddress"
+                                            value={formData.officeAddress}
+                                            onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="YourUsername" />
+                                    </div>
 
+                                </>
+
+                                : <> </>}
                             <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Already have an account? <Link to="/login" className="font-medium text-primary-600 hover:underline dark:text-blue-500">Login here</Link>

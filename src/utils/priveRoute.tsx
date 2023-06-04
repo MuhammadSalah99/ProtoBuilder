@@ -13,8 +13,8 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
 
     }, [])
     const {user, setUser} = useContext(AuthContext)
-  if (!user) {
-    return <Navigate to="/login" replace />;
+  if (!user || user.role != 'Engineer') {
+    return <Navigate to="/" replace />;
   }
 
   return (
