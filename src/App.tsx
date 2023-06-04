@@ -13,6 +13,7 @@ import Home from './pages/home/Home'
 import PrivateRoute from './utils/priveRoute'
 import { User } from './utils/useUser'
 import { useLocalStorage } from './utils/useLocalStorage'
+import AdminBlogs from './pages/dashboard/blogs/AdminBlogs'
 function App() {
 
 
@@ -55,7 +56,11 @@ function App() {
         },
         {
             path: "/:id/dashboard/pagebuilder",
-            element: <PageBuilder />
+            element: <PrivateRoute element={<PageBuilder />} />
+
+        }, {
+            path: "/:id/dashboard/blogs",
+            element: <PrivateRoute element={<AdminBlogs />} />
 
         }]
 
