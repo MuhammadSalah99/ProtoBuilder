@@ -30,8 +30,9 @@ const Register = () => {
         try {
 
             const response = await axios.post('https://nodeasaltask-production.up.railway.app/api/users/signup', userData);
-            const userD: User = response.data
+            const userD: User = response.data.user
             setUser(userD)
+            console.log(userD)
             addUser(userD)
             setTimeout(() => {
 
