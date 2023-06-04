@@ -17,7 +17,7 @@ const CreateBlog = () => {
             console.log(editorRef.current.getContent());
         }
         let cont = editorRef.current.getContent()
-        axios.post('https://nodeasaltask-production.up.railway.app/blogs',
+        axios.post('https://nodeasaltask-production.up.railway.app/api/blogs',
         { title: title, content: cont, userId: id })
         .then((res) => { console.log(res) })
         .catch((err) => {

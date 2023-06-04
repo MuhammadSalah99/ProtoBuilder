@@ -1,8 +1,22 @@
 import { Link } from 'react-router-dom'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../utility/navbar'
-
+import axios from 'axios'
 const AdminBlogs = () => {
+    const [blogs, setBlogs] = useState([])
+    useEffect(() => {
+        axios.get('https://nodeasaltask-production.up.railway.app/api/blogs')
+            .then((res) => {
+                setTimeout(() => {
+                    console.log(res)
+                    setBlogs(res.data)
+                    console.log(blogs)
+                }, 500)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
     return (
         <div className='flex'>
             <Navbar />
@@ -25,17 +39,19 @@ const AdminBlogs = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="bg-white border-b ">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td className="px-6 py-4">
-                                    SilveNamer
-                                </td>
-                                <td className="px-6 py-4">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                </td>
-                            </tr>
+                            {blogs.map((blog) => (
+                                <tr className="bg-white border-b" key={blog.id}>
+                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                        {blog.title}
+                                    </th>
+                                    <td className="px-6 py-4">
+                                        {blog.createdAt}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
