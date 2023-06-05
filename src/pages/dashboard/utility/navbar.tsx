@@ -146,8 +146,10 @@ const navbar = () => {
                             </a>
                         </li>
                         <li className="rounded-sm">
-                            <a
-                                href="#"
+                            <Link
+                                
+                                to={`/${user.id}/dashboard/projects`}
+
                                 className="flex items-center p-2 space-x-3 rounded-md"
                             >
                                 <svg
@@ -170,7 +172,7 @@ const navbar = () => {
                                     />
                                 </svg>
                                 <span className="text-gray-100">Projects</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="rounded-sm">
                             <Link

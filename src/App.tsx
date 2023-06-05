@@ -16,6 +16,9 @@ import AdminBlogs from './pages/dashboard/blogs/AdminBlogs'
 import CreateBlog from './pages/dashboard/blogs/CreateBlog'
 import EditBlogs from './pages/dashboard/blogs/EditBlogs'
 import SendMessages from './pages/dashboard/messages/SendMessages'
+import AdminProjects from './pages/dashboard/projects/AdminProjects'
+import CreateProject from './pages/dashboard/projects/CreateProject'
+import EditProject from './pages/dashboard/projects/EditProject'
 
 function App() {
 
@@ -74,6 +77,18 @@ function App() {
         {
             path: "/:id/dashboard/blogs/:blogId/edit",
             element: <PrivateRoute element={<EditBlogs />} />
+        },
+        {
+            path: "/:id/dashboard/projects",
+            element: <PrivateRoute element={<AdminProjects />} />
+        },
+        {
+            path:  "/:id/dashboard/projects/create",
+            element: <PrivateRoute element={<CreateProject />} />
+        },
+        {
+            path: ":id/dashboard/projects/:projectId/edit",
+            element: <PrivateRoute element={<EditProject />} />
         },
         {
             path: "/text",
