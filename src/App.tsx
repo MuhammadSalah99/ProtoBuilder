@@ -3,7 +3,6 @@ import './App.css'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { AuthContext } from './context/AuthContext'
-import { useAuth } from './utils/useAuth'
 
 import Login from './pages/login/login'
 import Register from './pages/register/Register'
@@ -16,6 +15,8 @@ import { useLocalStorage } from './utils/useLocalStorage'
 import AdminBlogs from './pages/dashboard/blogs/AdminBlogs'
 import CreateBlog from './pages/dashboard/blogs/CreateBlog'
 import EditBlogs from './pages/dashboard/blogs/EditBlogs'
+import SendMessages from './pages/dashboard/messages/SendMessages'
+
 function App() {
 
 
@@ -74,6 +75,10 @@ function App() {
             path: "/:id/dashboard/blogs/:blogId/edit",
             element: <PrivateRoute element={<EditBlogs />} />
         },
+        {
+            path: "/text",
+            element: <SendMessages />
+        }
     ]
 
     const router = createBrowserRouter(routes)

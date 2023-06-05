@@ -7,6 +7,7 @@ export interface User {
     name: string;
     email: string;
     authToken: string;
+    role: string;
 }
 
 export const useUser = () => {
