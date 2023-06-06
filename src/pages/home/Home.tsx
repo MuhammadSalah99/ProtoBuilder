@@ -28,7 +28,7 @@ const Home = () => {
     }, []);
     return (
 
-        <div className='w-screen bg-gray-50 dark:bg-gray-900 h-screen'>
+        <div className='w-screen bg-gray-50 dark:bg-gray-900'>
             <Navbar />
             <div className='flex w-full p-12 flex-col  '>
                 {engs.map((eng) => (

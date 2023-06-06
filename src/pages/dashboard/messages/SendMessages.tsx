@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, ChangeEvent, FormEvent, useContext } from 'react';
 import { AuthContext } from '../../../context/AuthContext';
-
+import Navbar from '../../home/utility/Navbar';
 const SendMessages: React.FC = () => {
     const [senderId, setSenderId] = useState('');
     const [receiverId, setReceiverId] = useState('');
@@ -42,7 +42,8 @@ const SendMessages: React.FC = () => {
 
     return (
         <div className="container mx-auto shadow-lg rounded-lg h-screen">
-            <div className="flex flex-row justify-between bg-white h-full">
+            <Navbar />
+            <div className="flex flex-row justify-between h-[92%]  bg-gray-800">
                 {/* chat list */}
                 <div className="flex flex-col w-2/5 border-r-2 overflow-y-auto">
                     {/* search compt */}
@@ -64,7 +65,7 @@ const SendMessages: React.FC = () => {
                             />
                         </div>
                         <div className="w-full">
-                            <div className="text-lg font-semibold">Luis1994</div>
+                            <div className="text-lg font-semibold text-white">Luis1994</div>
                             <span className="text-gray-500">Pick me at 9:00 Am</span>
                         </div>
                     </div>
@@ -77,7 +78,7 @@ const SendMessages: React.FC = () => {
                             />
                         </div>
                         <div className="w-full">
-                            <div className="text-lg font-semibold">Everest Trip 2021</div>
+                            <div className="text-lg font-semibold text-white">Everest Trip 2021</div>
                             <span className="text-gray-500">Hi Sam, Welcome</span>
                         </div>
                     </div>
@@ -90,7 +91,7 @@ const SendMessages: React.FC = () => {
                             />
                         </div>
                         <div className="w-full">
-                            <div className="text-lg font-semibold">MERN Stack</div>
+                            <div className="text-lg font-semibold text-white">MERN Stack</div>
                             <span className="text-gray-500">Lusi : Thanks Everyone</span>
                         </div>
                     </div>
@@ -103,7 +104,7 @@ const SendMessages: React.FC = () => {
                             />
                         </div>
                         <div className="w-full">
-                            <div className="text-lg font-semibold">Javascript Indonesia</div>
+                            <div className="text-lg font-semibold text-white">Javascript Indonesia</div>
                             <span className="text-gray-500">Evan : some one can fix this</span>
                         </div>
                     </div>
@@ -116,7 +117,7 @@ const SendMessages: React.FC = () => {
                             />
                         </div>
                         <div className="w-full">
-                            <div className="text-lg font-semibold">Javascript Indonesia</div>
+                            <div className="text-lg font-semibold text-white">Javascript Indonesia</div>
                             <span className="text-gray-500">Evan : some one can fix this</span>
                         </div>
                     </div>
@@ -128,7 +129,7 @@ const SendMessages: React.FC = () => {
                                 alt=""
                             />
                         </div>
-                        <div className="w-full">
+                        <div className="w-full text-white">
                             <div className="text-lg font-semibold">Javascript Indonesia</div>
                             <span className="text-gray-500">Evan : some one can fix this</span>
                         </div>
@@ -212,14 +213,14 @@ const SendMessages: React.FC = () => {
                 {/* end message */}
                 <div className="w-2/5 border-l-2 px-5">
                     <div className="flex flex-col">
-                        <div className="font-semibold text-xl py-4">Mern Stack Group</div>
+                        <div className="font-semibold text-xl py-4 text-white">Mern Stack Group</div>
                         <img
                             src="https://source.unsplash.com/L2cxSuKWbpo/600x600"
                             className="object-cover rounded-xl h-64"
                             alt=""
                         />
-                        <div className="font-semibold py-4">Created 22 Sep 2021</div>
-                        <div className="font-light">
+                        <div className="font-semibold py-4 text-white">Created 22 Sep 2021</div>
+                        <div className="font-light text-white">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
                             perspiciatis!
                         </div>
