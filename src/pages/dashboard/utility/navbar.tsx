@@ -20,7 +20,9 @@ const navbar = () => {
                     <h2 className="text-xl font-bold text-white">Dashboard</h2>
                 </div>
 
-                <h1 className='text-white text-lg'>{user ? user.name : ""}</h1>
+                <Link to="user/edit">
+                    <h1 className='text-white text-lg'>{user ? user.name : ""}</h1>
+                </Link>
                 <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center py-4">
                         <button
@@ -147,7 +149,7 @@ const navbar = () => {
                         </li>
                         <li className="rounded-sm">
                             <Link
-                                
+
                                 to={`/${user.id}/dashboard/projects`}
 
                                 className="flex items-center p-2 space-x-3 rounded-md"

@@ -14,7 +14,8 @@ const Register = () => {
         role: '',
         major: '',
         phone: '',
-        officeAddress: ""
+        officeAddress: "",
+        city: "",
 
     });
 
@@ -113,30 +114,43 @@ const Register = () => {
                             </div>
                             {formData.role == 'Engineer' ?
                                 <>
-                                    <div>
-                                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What's your major</label>
-                                        <select id="major" name="major" value={formData.major} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option>Civil Engineer</option>
-                                            <option>Architect</option>
-                                            <option>Carpenter</option>
-                                            <option>Internal Designer</option>
-                                        </select>
+                                    <div className='flex w-full justify-between'>
+                                        <div>
+                                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Major</label>
+                                            <select id="major" name="major" value={formData.major} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                <option>Civil Engineer</option>
+                                                <option>Architect</option>
+                                                <option>Carpenter</option>
+                                                <option>Internal Designer</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="phone number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                                            <input type="text"
+                                                id="phone"
+                                                name="phone"
+                                                value={formData.phone}
+                                                onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Phone" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label htmlFor="phone number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
-                                        <input type="text"
-                                            id="phone"
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="YourUsername" />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="officeAddress" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Office Address</label>
-                                        <input type="text"
-                                            id="officeAddress"
-                                            name="officeAddress"
-                                            value={formData.officeAddress}
-                                            onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="YourUsername" />
+                                    <div className='flex w-full justify-between'>
+                                        <div>
+                                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                                            <select id="major" name="city" value={formData.city} onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                <option>Tulkarm</option>
+                                                <option>Jenin</option>
+                                                <option>Nablus</option>
+                                                <option>Ramallah</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="officeAddress" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Office Address</label>
+                                            <input type="text"
+                                                id="officeAddress"
+                                                name="officeAddress"
+                                                value={formData.officeAddress}
+                                                onChange={handleInputChange} className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Office Address" />
+                                        </div>
                                     </div>
 
                                 </>

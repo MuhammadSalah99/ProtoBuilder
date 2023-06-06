@@ -8,7 +8,7 @@ import Login from './pages/login/login'
 import Register from './pages/register/Register'
 import Index from './pages/dashboard'
 import PageBuilder from './pages/dashboard/pagebuilder/PageBuilder'
-import Home from './pages/home/Home'
+import Landing from './pages/landing/Landing'
 import PrivateRoute from './utils/priveRoute'
 import { User } from './utils/useUser'
 import { useLocalStorage } from './utils/useLocalStorage'
@@ -19,6 +19,8 @@ import SendMessages from './pages/dashboard/messages/SendMessages'
 import AdminProjects from './pages/dashboard/projects/AdminProjects'
 import CreateProject from './pages/dashboard/projects/CreateProject'
 import EditProject from './pages/dashboard/projects/EditProject'
+import Home from './pages/home/Home'
+import EditUser from './pages/dashboard/user/EditUser'
 
 function App() {
 
@@ -46,7 +48,7 @@ function App() {
 
         {
             path: "/",
-            element: <Home />,
+            element: <Landing />,
         },
         {
             path: "/register",
@@ -89,6 +91,14 @@ function App() {
         {
             path: ":id/dashboard/projects/:projectId/edit",
             element: <PrivateRoute element={<EditProject />} />
+        },
+        {
+            path: ":id/dashboard/user/edit",
+            element: <PrivateRoute element={<EditUser /> } />
+        },
+        {
+            path: "explore",
+            element: <Home />
         },
         {
             path: "/text",
