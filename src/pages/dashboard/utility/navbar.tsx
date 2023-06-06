@@ -20,7 +20,8 @@ const navbar = () => {
                     <h2 className="text-xl font-bold text-white">Dashboard</h2>
                 </div>
 
-                <Link to="user/edit">
+                <Link
+                    to={`/${user.id}/dashboard/user/edit`}>
                     <h1 className='text-white text-lg'>{user ? user.name : ""}</h1>
                 </Link>
                 <div className="relative">
