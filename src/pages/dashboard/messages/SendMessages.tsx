@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, ChangeEvent, FormEvent, useContext } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import Navbar from '../../home/utility/Navbar';
@@ -8,8 +8,37 @@ const SendMessages: React.FC = () => {
     const [content, setContent] = useState('');
     const [sentMessages, setSetMessages] = useState([])
     const [receivedMessages, setReceivedMessages] = useState([])
+    const [all, setAll] = useState([])
     const { user } = useContext(AuthContext)
-    const { senderId, receiverId } = useParams()
+    useEffect(() => {
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/msg/messages/${senderId}`)
+            .then((res) => {
+                setTimeout(() => {
+
+                    setAll(res.data)
+                    console.log(res.data)
+                    let sent = res.data.filter((msg) => {
+                        if (msg.sender.id == senderId) {
+                            return msg
+                        }
+                    });
+                    let received = res.data.filter((msg) => {
+                        if (msg.receiver.id == senderId) {
+                            return msg
+                        }
+                    });
+                    setSetMessages(sent)
+                    setReceivedMessages(received)
+                    console.log(received)
+                    console.log(sent)
+                }, 1000)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+    }, [])
+    const { senderId, reciverId } = useParams()
     const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
@@ -18,8 +47,8 @@ const SendMessages: React.FC = () => {
         try {
             await axios.post('https://nodeasaltask-production.up.railway.app/api/msg/messages', {
                 senderId,
-                receiverId,
-                content ,
+                receiverId: reciverId,
+                content,
             });
             console.log('Message sent successfully');
             setContent('');
@@ -129,55 +158,21 @@ const SendMessages: React.FC = () => {
                 {/* message */}
                 <div className="w-full px-5 flex flex-col justify-between">
                     <div className="flex flex-col mt-5">
-                        <div className="flex justify-end mb-4">
-                            <div
-                                className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-                            >
-                                Welcome to group everyone !
-                            </div>
-                            <img
-                                src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                                className="object-cover h-8 w-8 rounded-full"
-                                alt=""
-                            />
-                        </div>
-                        <div className="flex justify-start mb-4">
-                            <img
-                                src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                                className="object-cover h-8 w-8 rounded-full"
-                                alt=""
-                            />
-                            <div
-                                className="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
-                            >
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                                at praesentium, aut ullam delectus odio error sit rem. Architecto
-                                nulla doloribus laborum illo rem enim dolor odio saepe,
-                                consequatur quas?
-                            </div>
-                        </div>
-                        <div className="flex justify-end mb-4">
-                            <div>
+                        {sentMessages.map((msg) => (
+                            <div className="flex justify-end mb-4">
                                 <div
                                     className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
                                 >
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                    Magnam, repudiandae.
+                                    {msg.content}
                                 </div>
-
-                                <div
-                                    className="mt-4 mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-                                >
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Debitis, reiciendis!
-                                </div>
+                                <img
+                                    src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                                    className="object-cover h-8 w-8 rounded-full"
+                                    alt=""
+                                />
                             </div>
-                            <img
-                                src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-                                className="object-cover h-8 w-8 rounded-full"
-                                alt=""
-                            />
-                        </div>
+                        ))}
+                        {receivedMessages.map((msg) => (
                         <div className="flex justify-start mb-4">
                             <img
                                 src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
@@ -187,11 +182,12 @@ const SendMessages: React.FC = () => {
                             <div
                                 className="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
                             >
-                                happy holiday guys!
+                             {msg.content}  
                             </div>
                         </div>
+                        ))}
                     </div>
-                    <form  onSubmit={handleSubmit} className="py-5 px-3 flex justify-between">
+                    <form onSubmit={handleSubmit} className="py-5 px-3 flex justify-between">
                         <input
                             className="w-2/3 bg-gray-300 py-5 px-3 rounded-xl"
                             type="text"
