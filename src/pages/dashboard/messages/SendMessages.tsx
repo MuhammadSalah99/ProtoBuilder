@@ -10,11 +10,11 @@ const SendMessages: React.FC = () => {
     const [info, setInfo] = useState({})
     const { user } = useContext(AuthContext)
     useEffect(() => {
-        axios.get(`https://nodeasaltask-production.up.railway.app/api/msg/messages/${senderId}`)
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/msg/messages/${senderId}/${reciverId}`)
             .then((res) => {
                 setTimeout(() => {
                     setAll(res.data)
-
+                    console.log(res.data)
                 }, 100)
             })
 
