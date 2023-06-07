@@ -21,6 +21,7 @@ import CreateProject from './pages/dashboard/projects/CreateProject'
 import EditProject from './pages/dashboard/projects/EditProject'
 import Home from './pages/home/Home'
 import EditUser from './pages/dashboard/user/EditUser'
+import Chat from './pages/dashboard/messages/Chat'
 
 function App() {
 
@@ -101,8 +102,8 @@ function App() {
             element: <Home />
         },
         {
-            path: "/text",
-            element: <SendMessages />
+            path: "/text/:senderId/:reId",
+            element: <Chat />
         },
         {
             path: "/:senderId/message/:reciverId",
