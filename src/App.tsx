@@ -85,23 +85,27 @@ function App() {
             element: <PrivateRoute element={<AdminProjects />} />
         },
         {
-            path:  "/:id/dashboard/projects/create",
+            path: "/:id/dashboard/projects/create",
             element: <PrivateRoute element={<CreateProject />} />
         },
         {
-            path: ":id/dashboard/projects/:projectId/edit",
+            path: "/:id/dashboard/projects/:projectId/edit",
             element: <PrivateRoute element={<EditProject />} />
         },
         {
-            path: ":id/dashboard/user/edit",
-            element: <PrivateRoute element={<EditUser /> } />
+            path: "/:id/dashboard/user/edit",
+            element: <PrivateRoute element={<EditUser />} />
         },
         {
-            path: "explore",
+            path: "/explore",
             element: <Home />
         },
         {
             path: "/text",
+            element: <SendMessages />
+        },
+        {
+            path: "/:senderId/message/:reciverId",
             element: <SendMessages />
         }
     ]

@@ -1,38 +1,27 @@
 import axios from 'axios';
 import React, { useState, ChangeEvent, FormEvent, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import Navbar from '../../home/utility/Navbar';
+
 const SendMessages: React.FC = () => {
-    const [senderId, setSenderId] = useState('');
-    const [receiverId, setReceiverId] = useState('');
     const [content, setContent] = useState('');
+    const [sentMessages, setSetMessages] = useState([])
+    const [receivedMessages, setReceivedMessages] = useState([])
     const { user } = useContext(AuthContext)
-    const handleSenderIdChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSenderId(e.target.value);
-    };
-
-    const handleReceiverIdChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setReceiverId(e.target.value);
-    };
-
+    const { senderId, receiverId } = useParams()
     const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            await axios.post('https://nodeasaltask-production.up.railway.app/api/messages', {
+            await axios.post('https://nodeasaltask-production.up.railway.app/api/msg/messages', {
                 senderId,
                 receiverId,
-                content,
-            }, {
-                headers: {
-                    Authorization: user.authToken
-                }
+                content ,
             });
             console.log('Message sent successfully');
-            setSenderId('');
-            setReceiverId('');
             setContent('');
 
         } catch (error) {
@@ -202,13 +191,16 @@ const SendMessages: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="py-5">
+                    <form  onSubmit={handleSubmit} className="py-5 px-3 flex justify-between">
                         <input
-                            className="w-full bg-gray-300 py-5 px-3 rounded-xl"
+                            className="w-2/3 bg-gray-300 py-5 px-3 rounded-xl"
                             type="text"
+                            value={content}
+                            onChange={handleContentChange}
                             placeholder="type your message here..."
                         />
-                    </div>
+                        <button type='submit' className=" w-1/4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Send</button>
+                    </form>
                 </div>
                 {/* end message */}
                 <div className="w-2/5 border-l-2 px-5">
