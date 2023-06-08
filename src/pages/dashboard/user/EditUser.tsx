@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { storage } from '../../../firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import Navbar from '../utility/navbar'
 const EditUser = () => {
 
@@ -11,6 +13,7 @@ const EditUser = () => {
     const [lastName, setLastName] = useState('');
     const [bio, setBio] = useState('');
     const [profilePic, setProfilePic] = useState<File | null>(null);
+    const [linkPic, setLinkPic] = useState('')
     const [city, setCity] = useState('');
 
     const { id } = useParams()
@@ -59,15 +62,29 @@ const EditUser = () => {
     const handleProfilePicChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         setProfilePic(file);
+        if (profilePic) {
+            const imageRef = ref(storage, `profilePics/${profilePic.name}`)
+            uploadBytes(imageRef, profilePic).then(() => {
+                getDownloadURL(imageRef).then((url) => {
+                    console.log(url)
+                    setLinkPic(url)
+                    alert(url)
+                })
+            })
+        }
+
+
     };
 
     const handleCityChange = (e: ChangeEvent<HTMLInputElement>) => {
         setCity(e.target.value);
     };
 
+    const uploadProfile = () => {
+    }
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-
         try {
             const response = await axios.put(`https://nodeasaltask-production.up.railway.app/api/users/edit/${id}`,
                 {
@@ -78,6 +95,7 @@ const EditUser = () => {
                     city: city,
                     major: major,
                     bio: bio,
+                    profilePic: linkPic,
 
                 });
 
