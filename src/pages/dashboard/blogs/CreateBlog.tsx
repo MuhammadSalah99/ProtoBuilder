@@ -1,12 +1,20 @@
 import Navbar from '../utility/navbar'
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useRef } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
 const CreateBlog = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const { id } = useParams()
     const navigate = useNavigate()
+    const editorRef = useRef(null);
+    const log = () => {
+        if (editorRef.current) {
+            console.log(editorRef.current.getContent());
+            setContent(editorRef.current.getContent())
+        }
+    };
     const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     };
@@ -53,12 +61,26 @@ const CreateBlog = () => {
                     </div>
                     <div className="mb-4">
                         <label className="block mb-2 font-bold">Content:</label>
-                        <textarea
-                            className="border border-gray-300 rounded px-3 h-[300px] py-2 w-full"
-                            value={content}
-                            placeholder="content..."
-                            onChange={handleContentChange}
+                        <Editor
+                            onInit={(evt, editor) => editorRef.current = editor}
+                            initialValue="<p>This is the initial content of the editor.</p>"
+                            init={{
+                                height: 500,
+                                menubar: false,
+                                plugins: [
+                                    'advlist autolink lists link image charmap print preview anchor',
+                                    'searchreplace visualblocks code fullscreen',
+                                    'insertdatetime media table paste code help wordcount'
+                                ],
+                                toolbar: 'undo redo | formatselect | ' +
+                                    'bold italic backcolor | alignleft aligncenter ' +
+                                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                                    'removeformat | help',
+                                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                            }}
                         />
+                        <button onClick={log}>Log editor content</button>
+
                     </div>
                     <button
                         type="submit"
