@@ -60,7 +60,7 @@ const EditProject = () => {
         }, 500)
     };
     return (
-        <div className='flex w-full'>
+        <div className='flex w-full h-screen'>
             <Navbar />
             <div className="w-full mx-auto mt-8 p-8">
                 <h2 className="text-2xl font-bold mb-4">Edit Project Details</h2>

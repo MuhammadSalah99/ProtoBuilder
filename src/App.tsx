@@ -22,6 +22,8 @@ import EditProject from './pages/dashboard/projects/EditProject'
 import Home from './pages/home/Home'
 import EditUser from './pages/dashboard/user/EditUser'
 import Chat from './pages/dashboard/messages/Chat'
+import Blogs from './pages/home/Blogs'
+import Blog from './pages/home/Blog'
 
 function App() {
 
@@ -101,6 +103,15 @@ function App() {
             path: "/explore",
             element: <Home />
         },
+        {
+            path: '/blogs',
+            element: <Blogs />
+        },
+        {
+            path: '/blogs/:blogId',
+            element: <Blog />
+        },
+            
         {
             path: "/text/:senderId/:reId",
             element: <Chat />

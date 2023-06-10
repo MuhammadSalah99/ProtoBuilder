@@ -34,7 +34,7 @@ const AdminProjects = () => {
 
     }
     return (
-        <div className='flex'>
+        <div className='flex h-screen'>
             <Navbar />
             <div className='flex m-2 p-10 flex-col w-full'>
                 <h1 className='text-3xl'>Projects</h1>

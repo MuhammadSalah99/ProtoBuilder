@@ -29,6 +29,7 @@ const EditUser = () => {
                 setOfficeAddress(res.data.officeAddress)
                 setBio(res.data.bio)
                 setMajor(res.data.major)
+                setLinkPic(res.data.profilePic)
             })
             .catch((err) => {
                 console.log(err)
@@ -61,15 +62,15 @@ const EditUser = () => {
 
     const handleProfilePicChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        setProfilePic(file);
-        if (profilePic) {
-            const imageRef = ref(storage, `profilePics/${profilePic.name}`)
-            uploadBytes(imageRef, profilePic).then(() => {
+        if (file) {
+            const imageRef = ref(storage, `profilePics/${file.name}`)
+            uploadBytes(imageRef, file).then(() => {
                 getDownloadURL(imageRef).then((url) => {
                     console.log(url)
                     setLinkPic(url)
                     alert(url)
                 })
+                .catch((err) => {console.log(err)})
             })
         }
 
@@ -118,7 +119,7 @@ const EditUser = () => {
         }
     };
     return (
-        <div className='flex w-full'>
+        <div className='flex w-full h-screen'>
             <Navbar />
             <div className='w-full mx-auto mt-8 p-8'>
                 <h2 className='text-xl fontn-bold mb-4'>Edit Username</h2>

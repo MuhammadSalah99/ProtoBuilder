@@ -3,12 +3,37 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import React, { useState, ChangeEvent, FormEvent, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
+import { storage } from '../../../firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+
 const CreateBlog = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [thumbnail, setThumbanil] = useState<File | null>(null)
     const { id } = useParams()
+    const [linkPic, setLinkPic] = useState('')
+    const [expert, setExpert] = useState('')
     const navigate = useNavigate()
     const editorRef = useRef(null);
+
+    const handleThumbChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+        const file = e.target.files?.[0];
+        setThumbanil(file);
+        console.log(thumbnail)
+        if (file) {
+            const imageRef = ref(storage, `blog/${file.name}`)
+            uploadBytes(imageRef, file).then(() => {
+                getDownloadURL(imageRef).then((url) => {
+                    console.log(url)
+                    setLinkPic(url)
+                    alert(url)
+                })
+            }).catch((err) => { console.log(err) })
+        }
+
+
+    };
     const log = () => {
         if (editorRef.current) {
 
@@ -20,7 +45,9 @@ const CreateBlog = () => {
     const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     };
-
+    const handleExerptChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setExpert(e.target.value);
+    };
     const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
@@ -31,7 +58,9 @@ const CreateBlog = () => {
             {
                 title: title,
                 content: content,
-                userId: id
+                userId: id,
+                expert: expert,
+                thumbNail: linkPic
             })
             .then((res) => {
                 console.log(res)
@@ -62,6 +91,17 @@ const CreateBlog = () => {
                         />
                     </div>
                     <div className="mb-4">
+                        <label className="block mb-2 font-bold">Exerpt:</label>
+                        <input
+                            type="text"
+                            className="border border-gray-300 rounded px-3 py-2 w-full"
+                            value={expert}
+                            onChange={handleExerptChange}
+                            placeholder="Title..."
+                        />
+                    </div>
+
+                    <div className="mb-4">
                         <label className="block mb-2 font-bold">Content:</label>
                         <Editor
                             onInit={(evt, editor) => editorRef.current = editor}
@@ -81,6 +121,17 @@ const CreateBlog = () => {
                                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
                             }}
                         />
+                        <div className="mb-4">
+
+                            <label className="block mb-2 text-sm font-medium text-gray-900" >
+                                Blog Thumbnail:</label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                className="border border-gray-300 rounded px-3 py-2 w-full"
+                                onChange={handleThumbChange}
+                            />
+                        </div>
                         <button
 
                             className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
