@@ -1,47 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const Chat = () => {
+
     const [messages, setMessages] = useState([]);
-    const socket = io('https://nodeasaltask-production.up.railway.app/');
-    const room = "3434asdf3"
+    const [message, setMessage] = useState('');
+    const { senderId, reId } = useParams()
+    const socket = io('http://localhost:8080');
+    const roomID = `ID ${senderId} ${reId}`
+
 
     useEffect(() => {
-        // Handle new messages received from the server\a\a
-        socket.emit('joinRoom', room);
-        socket.on('newMessage', (message) => {
-            setMessages((prevMessages) => [...prevMessages, message]);
-        });
+        socket.emit('newUser', { userName: "test", socketID: socket.id });
+        socket.on('messageResponse', (data) => setMessages([...messages, data]));
 
-        // Clean up the socket connection when the component unmounts
-        return () => {
-            socket.emit('leaveRoom', room);
-            socket.disconnect();
-        };
-    }, []);
+    }, [socket, messages])
 
-    const handleSendMessage = (messageContent) => {
-        const message = {
-            senderId: 6,
-            receiverId: 1,
-            content: messageContent,
-        };
-
-        // Save the message to the database using Sequelize
-        axios.post('https://nodeasaltask-production.up.railway.app/api/msg/messages', message)
-            .then((response) => {
-                // Handle successful save
-                console.log('Message saved:', response.data);
-            })
-            .catch((error) => {
-                // Handle error
-                console.error('Error saving message:', error);
-            });
-
-        // Send the message to the server
-        socket.emit('newMessage', message);
+    const handleSendMessage = () => {
+        e.preventDefault();
+        socket.emit('message', {
+            content: message,
+            senderId: senderId,
+            id: `${socket.id}${Math.random()}`,
+            socketID: socket.id,
+        })
+        setMessage('');
     };
+
+
 
     return (
         <div className="container mx-auto">
@@ -56,28 +44,17 @@ const Chat = () => {
             </div>
 
             {/* Send message form */}
-            <form
-                className="mt-4"
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    const messageInput = e.target.elements.message;
-                    handleSendMessage(messageInput.value);
-                    messageInput.value = '';
-                }}
-            >
+            <form className="form" onSubmit={handleSendMessage}>
                 <input
                     type="text"
-                    name="message"
-                    placeholder="Type your message..."
-                    className="w-full py-2 px-4 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+                    placeholder="Write message"
+                    className="message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                 />
-                <button
-                    type="submit"
-                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                >
-                    Send
-                </button>
+                <button className="sendBtn">SEND</button>
             </form>
+
         </div>
     );
 };

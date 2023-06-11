@@ -6,8 +6,9 @@ import Navbar from '../../home/utility/Navbar';
 
 const SendMessages: React.FC = () => {
     const [content, setContent] = useState('');
+    const [recInfo, setRecInfo] = useState({})
     const [all, setAll] = useState([])
-    const [info, setInfo] = useState({})
+    const [sen, setSen] = useState({})
     const { user } = useContext(AuthContext)
     useEffect(() => {
         axios.get(`https://nodeasaltask-production.up.railway.app/api/msg/messages/${senderId}/${reciverId}`)
@@ -24,12 +25,26 @@ const SendMessages: React.FC = () => {
         axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${reciverId}`)
             .then((res) => {
                 setTimeout(() => {
-                    setInfo(res.data)
+                    setRecInfo(res.data)
+                    console.log(res.data)
+
                 }, 100)
             })
             .catch((err) => {
                 console.log(err)
             })
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${senderId}`)
+            .then((res) => {
+                setTimeout(() => {
+                    setSen(res.data)
+                    console.log(res.data)
+
+                }, 100)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
     }, [])
     const { senderId, reciverId } = useParams()
     const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -69,7 +84,7 @@ const SendMessages: React.FC = () => {
                                         {msg.content}
                                     </div>
                                     <img
-                                        src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                                        src={sen.profilePic}
                                         className="object-cover h-8 w-8 rounded-full"
                                         alt=""
                                     />
@@ -77,7 +92,7 @@ const SendMessages: React.FC = () => {
                                 :
                                 <div className="flex justify-start mb-4">
                                     <img
-                                        src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                                        src={recInfo.profilePic}
                                         className="object-cover h-8 w-8 rounded-full"
                                         alt=""
                                     />
@@ -103,23 +118,6 @@ const SendMessages: React.FC = () => {
                     </form>
                 </div>
                 {/* end message */}
-                <div className="w-2/5 border-l-2 px-5">
-                    <div className="flex flex-col">
-                        <div className="font-semibold text-xl py-4 text-white">{info.firstName} {info.lastName}</div>
-                        <img
-                            src="https://source.unsplash.com/L2cxSuKWbpo/600x600"
-                            className="object-cover rounded-xl h-64"
-                            alt=""
-                        />
-                        <div className="font-semibold py-4 text-white">{info.bio}</div>
-                        <div className="font-light text-white">
-                            {info.major}
-                        </div>
-                        <div className="font-light text-white">
-                            {info.city} {info.officeAddress}
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     );

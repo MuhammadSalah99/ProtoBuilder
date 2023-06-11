@@ -26,6 +26,7 @@ import Blogs from './pages/home/Blogs'
 import Blog from './pages/home/Blog'
 import UserPro from './pages/home/User'
 import BlogsOfUser from './pages/home/BlogsOfUser'
+import AdminInbox from './pages/dashboard/inbox/AdminInbox'
 function App() {
 
 
@@ -99,6 +100,10 @@ function App() {
         {
             path: "/:id/dashboard/user/edit",
             element: <PrivateRoute element={<EditUser />} />
+        },
+        {
+            path: '/:id/dashboard/inbox',
+            element: <PrivateRoute element={<AdminInbox />} />
         },
         {
             path: "/explore",
