@@ -24,7 +24,8 @@ import EditUser from './pages/dashboard/user/EditUser'
 import Chat from './pages/dashboard/messages/Chat'
 import Blogs from './pages/home/Blogs'
 import Blog from './pages/home/Blog'
-
+import UserPro from './pages/home/User'
+import BlogsOfUser from './pages/home/BlogsOfUser'
 function App() {
 
 
@@ -111,7 +112,14 @@ function App() {
             path: '/blogs/:blogId',
             element: <Blog />
         },
-            
+        {
+            path: '/blogs/all/:userId',
+            element: <BlogsOfUser />
+        },
+        {
+            path: '/users/:userId',
+            element: <UserPro />
+        },
         {
             path: "/text/:senderId/:reId",
             element: <Chat />

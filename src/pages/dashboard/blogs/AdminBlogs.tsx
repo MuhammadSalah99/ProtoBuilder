@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../utility/navbar'
 import axios from 'axios'
+import { AuthContext } from '../../../context/AuthContext'
 const AdminBlogs = () => {
     const [blogs, setBlogs] = useState([])
+    const { user } =useContext(AuthContext)
     useEffect(() => {
-        axios.get('https://nodeasaltask-production.up.railway.app/api/blogs')
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/blogs/by/${user.id}`)
             .then((res) => {
                 setTimeout(() => {
                     console.log(res)
