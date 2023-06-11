@@ -27,6 +27,7 @@ import Blog from './pages/home/Blog'
 import UserPro from './pages/home/User'
 import BlogsOfUser from './pages/home/BlogsOfUser'
 import AdminInbox from './pages/dashboard/inbox/AdminInbox'
+import Projects from './pages/home/Projects'
 function App() {
 
 
@@ -116,6 +117,10 @@ function App() {
         {
             path: '/blogs/:blogId',
             element: <Blog />
+        },
+        {
+            path: '/projects',
+            element: <Projects />
         },
         {
             path: '/blogs/all/:userId',
