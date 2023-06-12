@@ -5,13 +5,13 @@ import Footer from './utility/Footer'
 import Navbar from './utility/Navbar'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-
+import { Pannellum, PannellumVideo } from "pannellum-react";
 const Project = () => {
 
     const [project, setProject] = useState({})
     const { projectId } = useParams()
     const [projectImages, setProjectImages] = useState([])
-    const [user, setUser] = useState({id: ''})
+    const [user, setUser] = useState({ id: '' })
     useEffect(() => {
         setTimeout(() => {
             axios.get(`https://nodeasaltask-production.up.railway.app/api/projects/${projectId} `)
@@ -32,7 +32,7 @@ const Project = () => {
             <Navbar />
             <div className='w-[80%] m-auto p-10 h-full'>
                 <h1 className='text-3xl text-white'>{project.title}</h1>
-                <Link  to={`/users/${user.id}`}><span className='mb-3 font-normal text-gray-700 underline dark:text-gray-400'>By:{project.user ? <span> {project.user.firstName} {project.user.lastName}</span> : ''}  </span></Link>
+                <Link to={`/users/${user.id}`}><span className='mb-3 font-normal text-gray-700 underline dark:text-gray-400'>By:{project.user ? <span> {project.user.firstName} {project.user.lastName}</span> : ''}  </span></Link>
                 <div className={`w-full mt-10  h-[450px] `} style={{
                     backgroundImage: `url(${project.thumbNail})`,
                     backgroundPosition: 'center',
@@ -51,7 +51,28 @@ const Project = () => {
                         </div>
                     ))}
                 </Carousel>
+                <Pannellum
+                    width="100%"
+                    height="500px"
+                    image={'https://pannellum.org/images/alma.jpg'}
+                    pitch={10}
+                    yaw={180}
+                    hfov={110}
+                    autoLoad
+                    onLoad={() => {
+                        console.log("panorama loaded");
+                    }}
+                >
+                    <Pannellum.Hotspot
+                        type="info"
+                        text="Info Hotspot Text 3"
+                        pitch={12.41}
+                        yaw={117.76}
+                        handleClick={(evt, name) => console.log(name)}
+                        name="image info"
+                    />
 
+                </Pannellum>
             </div>
             <Footer />
         </div>
