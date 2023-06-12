@@ -25,9 +25,11 @@ import Chat from './pages/dashboard/messages/Chat'
 import Blogs from './pages/home/Blogs'
 import Blog from './pages/home/Blog'
 import UserPro from './pages/home/User'
-import BlogsOfUser from './pages/home/BlogsOfUser'
+import BlogsOfUser from './pages/home/BlogsByUser'
 import AdminInbox from './pages/dashboard/inbox/AdminInbox'
 import Projects from './pages/home/Projects'
+import Project from './pages/home/Project'
+import ProjectsByUser from './pages/home/ProjecsByUser'
 function App() {
 
 
@@ -121,6 +123,14 @@ function App() {
         {
             path: '/projects',
             element: <Projects />
+        },
+        {
+            path: '/projects/:projectId',
+            element: <Project />
+        },
+        {
+            path: '/projects/all/:userId',
+            element: <ProjectsByUser />
         },
         {
             path: '/blogs/all/:userId',

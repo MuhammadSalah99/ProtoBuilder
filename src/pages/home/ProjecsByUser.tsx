@@ -1,21 +1,23 @@
 import axios from 'axios'
 import React, { useEffect, useState, useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import Filters from './utility/Filters'
 import Footer from './utility/Footer'
 import Navbar from './utility/Navbar'
-const Projects = () => {
+const ProjectsByUser = () => {
     const [projects, setProjects] = useState([])
+    const [authe, setAuthe] = useState({})
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
+    const { userId } = useParams()
     useEffect(() => {
         if (!user) {
             navigate("/")
         }
         const fetchBlogs = async () => {
             try {
-                const response = await axios.get('https://nodeasaltask-production.up.railway.app/api/projects/');
+                const response = await axios.get(`https://nodeasaltask-production.up.railway.app/api/projects/by/${userId}`);
                 setProjects(response.data);
                 console.log(projects)
             } catch (error) {
@@ -25,12 +27,23 @@ const Projects = () => {
 
         setTimeout(() => {
             fetchBlogs();
+            fetchBlogs();
+            axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${userId}`)
+                .then((res) => {
+                    setAuthe(res.data)
+                    console.log(authe)
+                })
+                .catch((err) => { console.log(err) })
+
+
         }, 500)
     }, []);
     return (
 
         <div className='w-screen bg-gray-50 dark:bg-gray-900'>
             <Navbar />
+            <h1 className='text-white font-bold mb-3 text-2xl ml-16'>{authe.firstName} {authe.lastName} Projects:</h1>
+
             <div className='flex w-full p-12 flex-col  h-full'>
                 {projects.map((blog) => (
 
@@ -50,7 +63,7 @@ const Projects = () => {
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.title}</h5>
                             </Link>
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{blog.content}</p>
-                            <span className='mb-3 font-normal text-gray-700 dark:text-gray-400'>By:{blog.user ? <Link to={`/users/${blog.user.id}`} > {blog.user.firstName} {blog.user.lastName}</Link> : ''}  </span><br/>
+                            <span className='mb-3 font-normal text-gray-700 dark:text-gray-400'>By:{blog.user ? <Link to={`/users/${blog.user.id}`} > {blog.user.firstName} {blog.user.lastName}</Link> : ''}  </span><br />
                             <Link to={`/projects/${blog.id}`} className="inline-flex mt-3 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 Know more
 
@@ -67,4 +80,4 @@ const Projects = () => {
     )
 }
 
-export default Projects
+export default ProjectsByUser

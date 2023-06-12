@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useParams ,Link } from 'react-router-dom'
 import Navbar from '../utility/navbar'
 import axios from 'axios'
 const AdminProjects = () => {
     const [projects, setProjects] = useState([])
+    const { id } = useParams()
     useEffect(() => {
-        axios.get('https://nodeasaltask-production.up.railway.app/api/projects')
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/projects/by/${id}`)
             .then((res) => {
                 setTimeout(() => {
                     console.log(res)

@@ -12,8 +12,8 @@ const CreateProject = () => {
     const [linkPic, setLinkPic] = useState('')
     const [fileArray, setFileArray] = useState([]);
     const [image360, setImage360] = useState('')
-
     const { id } = useParams()
+    const [userId, setUserId] = useState(id)
     const navigate = useNavigate()
 
     const handleThumbChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,10 +72,6 @@ const CreateProject = () => {
 
     };
 
-    const uploadFiles = (e) => {
-        e.preventDefault();
-        console.log(fileArray);
-    };
     const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     };
@@ -92,7 +88,7 @@ const CreateProject = () => {
             {
                 title: title,
                 content: content,
-                userId: id,
+                userId: userId,
                 thumbNail: linkPic,
                 projectImages: fileArray,
                 image360: image360,
@@ -150,7 +146,7 @@ const CreateProject = () => {
                         <label className="block mb-2 text-sm font-medium text-gray-900" >
                             Project 360 image:</label>
 
-                        <img key={image360} src={image360}  className='w-16 h-16 mr-6' />
+                        <img key={image360} src={image360} className='w-16 h-16 mr-6' />
                         <input
                             type="file"
                             accept="image/*"
@@ -164,7 +160,7 @@ const CreateProject = () => {
                         <label className="block mb-2 text-sm font-medium text-gray-900" >
                             Project Thumbnail:</label>
 
-                        <img key={linkPic} src={linkPic}  className='w-16 h-16 mr-6' />
+                        <img key={linkPic} src={linkPic} className='w-16 h-16 mr-6' />
                         <input
                             type="file"
                             accept="image/*"
@@ -175,13 +171,13 @@ const CreateProject = () => {
                     <div className='mb-4'>
                         <div className="flex mb-4">
                             {fileArray.map((url) => (
-                                <img key={url} src={url}  className='w-16 h-16 mr-6' />
+                                <img key={url} src={url} className='w-16 h-16 mr-6' />
                             ))}
                         </div>
                         <div className="form-group">
                             <input type="file" className="form-control" onChange={uploadMultipleFiles} multiple />
                         </div>
-                     
+
                     </div>
                     <button
                         type="submit"

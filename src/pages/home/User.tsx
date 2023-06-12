@@ -7,7 +7,7 @@ const User = () => {
     const { userId } = useParams()
     const [user, setUser] = useState({})
     const [userBlogs, setUserBlogs] = useState([])
-
+    const [userProjects, setUserProjects] = useState([])
     useEffect(() => {
         setTimeout(() => {
             axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${userId}`)
@@ -25,6 +25,16 @@ const User = () => {
 
                 })
                 .catch((err) => { console.log(err) })
+            axios.get(`https://nodeasaltask-production.up.railway.app/api/projects/by/${userId}`)
+                .then((res) => {
+                    console.log(res.data)
+
+                    setUserProjects(res.data)
+                    console.log(userBlogs)
+
+                })
+                .catch((err) => { console.log(err) })
+
         }, 500);
     }, [])
     return (
@@ -45,7 +55,7 @@ const User = () => {
                         Profile
                     </div>
                 </div>
-                
+
                 <h1 className='text-white font-bold mt-3 text-3xl'>{user.firstName} {user.lastName} Profile</h1>
             </div>
             <div className='w-83 m-auto flex  h-screen pl-16 mt-8'>
@@ -80,17 +90,25 @@ const User = () => {
 
 
                 <div className="w-[60%] ml-16 bg-white rounded-lg p-10 shadow dark:border dark:bg-gray-800 dark:border-gray-700">
-                        <h1 className='text-white text-2xl'>About</h1>
-                        <p className='text-gray-500 text-lg'>
-                            {user.bio}
-                        </p>
-                        <h1 className='text-white text-2xl mt-6'>Blogs <Link className='text-sm text-blue-500' to={`/blogs/all/${userId}`}>See All</Link></h1>
-                        {userBlogs.map((blog) => (
-                            <Link to={`/blogs/${blog.id}`} className="block max-w-sm p-6 bg-white my-5  border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.title}</h5>
-                                <p className="font-normal text-gray-700 dark:text-gray-400">{blog.expert}</p>
-                            </Link>
-                        ))}
+                    <h1 className='text-white text-2xl'>About</h1>
+                    <p className='text-gray-500 text-lg'>
+                        {user.bio}
+                    </p>
+                    <h1 className='text-white text-2xl mt-6'>Blogs <Link className='text-sm text-blue-500' to={`/blogs/all/${userId}`}>See All</Link></h1>
+                    {userBlogs.map((blog) => (
+                        <Link to={`/blogs/${blog.id}`} className="block max-w-sm p-6 bg-white my-5  border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.title}</h5>
+                            <p className="font-normal text-gray-700 dark:text-gray-400">{blog.expert}</p>
+                        </Link>
+                    ))}
+                    <h1 className='text-white text-2xl mt-6'>Projects <Link className='text-sm text-blue-500' to={`/projects/all/${userId}`}>See All</Link></h1>
+                    {userProjects.map((blog) => (
+                        <Link to={`/projects/${blog.id}`} className="block max-w-sm p-6 bg-white my-5  border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.title}</h5>
+                            <p className="font-normal text-gray-700 dark:text-gray-400">For: {blog.clientName}</p>
+                        </Link>
+                    ))}
+
                 </div>
             </div>
             <Footer />
