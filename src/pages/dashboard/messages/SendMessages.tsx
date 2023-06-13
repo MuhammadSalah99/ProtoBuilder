@@ -45,7 +45,7 @@ const SendMessages: React.FC = () => {
                 console.log(err)
             })
 
-    }, [])
+    }, [content])
     const { senderId, reciverId } = useParams()
     const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);

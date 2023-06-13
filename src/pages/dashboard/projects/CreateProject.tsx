@@ -101,7 +101,7 @@ const CreateProject = () => {
                 console.log(err)
             })
         setTimeout(() => {
-            navigate(`/${id}/dashboard/projects`)
+            navigate(`/${id}/dashboard`)
             setTitle('');
             setContent('');
         }, 500)

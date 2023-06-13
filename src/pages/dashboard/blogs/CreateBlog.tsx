@@ -69,7 +69,7 @@ const CreateBlog = () => {
                 console.log(err)
             })
         setTimeout(() => {
-            navigate(`/${id}/dashboard/blogs`)
+            navigate(`/${id}/dashboard`)
             setTitle('');
             setContent('');
         }, 500)
