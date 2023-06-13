@@ -45,7 +45,7 @@ const Index = () => {
     return (
         <div className="flex bg-gray-700">
             <Navbar />
-            <div className='w-full h-auto'>
+            <div className='w-full h-auto pb-10'>
                 <div className='pt-10 w-full pl-16'>
                     <div className='flex w-[200px] items-center text-gray-300'>
                         <Link to='/explore' className='flex w-20 mr-4 justify-between items-center'>
@@ -64,9 +64,9 @@ const Index = () => {
 
                     <h1 className='text-white font-bold mt-3 text-3xl'>{userInfo.firstName} {userInfo.lastName} Dashboard</h1>
                 </div>
-                <div className='w-83 m-auto flex  h-screen pl-16 mt-8'>
+                <div className='w-83 m-auto flex h-fit  pl-16 mt-8'>
 
-                    <div className="w-1/4 h-1/2 pl-6  bg-white rounded-lg shadow dark:border  dark:bg-gray-800 dark:border-gray-700 flex-col flex justify-between pb-10">
+                    <div className="w-1/4 h-[350px] pl-6  bg-white rounded-lg shadow dark:border  dark:bg-gray-800 dark:border-gray-700 flex-col flex justify-between pb-10">
                         <div className='w-full flex mt-8 h-16  items-center  pt-8'>
                             <img className="object-cover w-[80px] h-[80px] rounded-lg " src={userInfo.profilePic} alt="" />
                         </div>
@@ -95,7 +95,7 @@ const Index = () => {
                     </div>
 
 
-                    <div className="w-[60%] ml-16 bg-white rounded-lg p-10 shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+                    <div className="w-[60%] ml-16 bg-white rounded-lg p-10 shadow dark:border dark:bg-gray-800 dark:border-gray-700 h-fit">
                         <h1 className='text-white text-2xl'>About</h1>
                         <p className='text-gray-500 text-lg'>
                             {userInfo.bio}

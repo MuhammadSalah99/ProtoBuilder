@@ -39,7 +39,7 @@ const AdminProjects = () => {
             <Navbar />
             <div className='flex m-2 p-10 flex-col w-full'>
                 <h1 className='text-3xl'>Projects</h1>
-                <Link to="create" className="text-white mt-4 mb-4  bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2  w-[160px]">Publish a Project</Link>
+                <Link to="create" className="text-white mt-4 mb-4  bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2  w-[160px]">Publish a Project</Link>
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left text-gray-500 ">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
@@ -65,8 +65,8 @@ const AdminProjects = () => {
                                         {project.clientName}
                                     </td>
                                     <td className="px-1 py-4 flex justify-around  items-start w-24">
-                                        <Link to={`${project.id}/edit`} className='font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer'>Edit</Link>
-                                        <p onClick={() => deleteBlog(project.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer">Delete</p>
+                                        <Link to={`${project.id}/edit`} className='font-medium text-blue-600  hover:underline cursor-pointer'>Edit</Link>
+                                        <p onClick={() => deleteBlog(project.id)} className="font-medium text-blue-600  hover:underline cursor-pointer">Delete</p>
                                     </td>
                                 </tr>
                             ))}

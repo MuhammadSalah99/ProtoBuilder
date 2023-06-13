@@ -28,11 +28,11 @@ const Project = () => {
     }, [])
 
     return (
-        <div className=' w-screen  bg-gray-50 dark:bg-gray-900'>
+        <div className=' w-screen  bg-gray-900'>
             <Navbar />
-            <div className='w-[80%] m-auto p-10 h-full'>
+            <div className='w-[80%] m-auto p-10 h-auto'>
                 <h1 className='text-3xl text-white'>{project.title}</h1>
-                <Link to={`/users/${user.id}`}><span className='mb-3 font-normal text-gray-700 underline dark:text-gray-400'>By:{project.user ? <span> {project.user.firstName} {project.user.lastName}</span> : ''}  </span></Link>
+                <Link to={`/users/${user.id}`}><span className='mb-3 font-normal underline text-gray-400'>By:{project.user ? <span> {project.user.firstName} {project.user.lastName}</span> : ''}  </span></Link>
                 <div className={`w-full mt-10  h-[450px] `} style={{
                     backgroundImage: `url(${project.thumbNail})`,
                     backgroundPosition: 'center',

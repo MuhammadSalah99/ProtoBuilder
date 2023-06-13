@@ -72,7 +72,7 @@ const AdminInbox: React.FC = () => {
         <div className='flex'>
             <Navbar />
             <div className="container mx-auto shadow-lg rounded-lg h-screen">
-                <div className="flex flex-row justify-between h-[92vh]  bg-gray-800 h-full">
+                <div className="flex flex-row justify-between   bg-gray-800 h-full">
                     <div className="w-full px-5 flex flex-col justify-between  h-full relative">
                         <div className="flex flex-col mt-5 overflow-y-scroll h-screen">
                             {all.map((msg) => (
@@ -108,13 +108,13 @@ const AdminInbox: React.FC = () => {
                         </div>
                         <form onSubmit={handleSubmit} className="py-5 bottom-0 px-3 flex justify-between items-center">
                             <input
-                                className="w-2/3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="w-2/3  border text-sm rounded-lg block p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                                 type="text"
                                 value={content}
                                 onChange={handleContentChange}
                                 placeholder="type your message here..."
                             />
-                            <button type='submit' className=" w-1/4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Send</button>
+                            <button type='submit' className=" w-1/4 text-white  focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-blue-800">Send</button>
                         </form>
                     </div>
                     {/* end message */}

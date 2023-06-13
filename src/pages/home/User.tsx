@@ -38,7 +38,7 @@ const User = () => {
         }, 500);
     }, [])
     return (
-        <div className='w-full  bg-gray-50 dark:bg-gray-900 '>
+        <div className='w-full  bg-gray-900 '>
             <Navbar />
             <div className='pt-10 w-full pl-16'>
                 <div className='flex w-[200px] items-center text-gray-300'>
@@ -58,9 +58,9 @@ const User = () => {
 
                 <h1 className='text-white font-bold mt-3 text-3xl'>{user.firstName} {user.lastName} Profile</h1>
             </div>
-            <div className='w-83 m-auto flex  h-screen pl-16 mt-8'>
+            <div className='w-83 m-auto flex  h-fit pl-16 mt-8'>
 
-                <div className="w-1/4 h-1/2 pl-6  bg-white rounded-lg shadow dark:border  dark:bg-gray-800 dark:border-gray-700 flex-col flex justify-between pb-10">
+                <div className="w-1/4 h-[350px] pl-6   rounded-lg shadow border  bg-gray-800 border-gray-700 flex-col flex justify-between pb-10">
                     <div className='w-full flex mt-8 h-16  items-center  pt-8'>
                         <img className="object-cover w-[80px] h-[80px] rounded-lg " src={user.profilePic} alt="" />
                     </div>
@@ -89,23 +89,23 @@ const User = () => {
                 </div>
 
 
-                <div className="w-[60%] ml-16 bg-white rounded-lg p-10 shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+                <div className="w-[60%] ml-16  rounded-lg p-10 shadow border bg-gray-800 border-gray-700 h-fit">
                     <h1 className='text-white text-2xl'>About</h1>
                     <p className='text-gray-500 text-lg'>
                         {user.bio}
                     </p>
                     <h1 className='text-white text-2xl mt-6'>Blogs <Link className='text-sm text-blue-500' to={`/blogs/all/${userId}`}>See All</Link></h1>
                     {userBlogs.map((blog) => (
-                        <Link to={`/blogs/${blog.id}`} className="block max-w-sm p-6 bg-white my-5  border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.title}</h5>
-                            <p className="font-normal text-gray-700 dark:text-gray-400">{blog.expert}</p>
+                        <Link to={`/blogs/${blog.id}`} className="block max-w-sm p-6  my-5  border  rounded-lg shadow  bg-gray-800 border-gray-700 hover:bg-gray-700">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{blog.title}</h5>
+                            <p className="font-normal  text-gray-400">{blog.expert}</p>
                         </Link>
                     ))}
                     <h1 className='text-white text-2xl mt-6'>Projects <Link className='text-sm text-blue-500' to={`/projects/all/${userId}`}>See All</Link></h1>
                     {userProjects.map((blog) => (
-                        <Link to={`/projects/${blog.id}`} className="block max-w-sm p-6 bg-white my-5  border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.title}</h5>
-                            <p className="font-normal text-gray-700 dark:text-gray-400">For: {blog.clientName}</p>
+                        <Link to={`/projects/${blog.id}`} className="block max-w-sm p-6  my-2  border  rounded-lg shadow  bg-gray-800 border-gray-700 hover:bg-gray-700">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{blog.title}</h5>
+                            <p className="font-normal text-gray-400">For: {blog.clientName}</p>
                         </Link>
                     ))}
 
