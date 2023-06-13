@@ -106,6 +106,7 @@ const CreateBlog = () => {
                         <Editor
                             onInit={(evt, editor) => editorRef.current = editor}
                             initialValue="<p>This is the initial content of the editor.</p>"
+                            apiKey='v68lp2edzpye7f2kml792hns9oqdyp6te8e8jkkeza6gtidq'
                             init={{
                                 height: 500,
                                 menubar: false,
