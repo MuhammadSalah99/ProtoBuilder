@@ -14,23 +14,11 @@ const Register = () => {
         email: Yup.string().email('Invalid email address').required('Email is required'),
         password: Yup.string().required('Password is required'),
         role: Yup.string().required('Role is required'),
-        major: Yup.string().when('role', {
-            is: 'Engineer',
-            then: Yup.string().required('Major is required'),
-        }),
-
-        phone: Yup.string().when('role', {
-            is: 'Engineer',
-            then: Yup.string().required('Phone is required'),
-        }),
-        officeAddress: Yup.string().when('role', {
-            is: 'Engineer',
-            then: Yup.string().required('Office address is required'),
-        }),
-        city: Yup.string().when('role', {
-            is: 'Engineer',
-            then: Yup.string().required('City is required'),
-        }),
+        
+        major: Yup.string().required('Major is required'),
+        phone: Yup.string().required('Phone is required'),
+        officeAddress: Yup.string().required('Office Address is required'),
+        city: Yup.string().required('City is required'),
 
     });
 

@@ -30,6 +30,7 @@ const EditUser = () => {
                 setBio(res.data.bio)
                 setMajor(res.data.major)
                 setLinkPic(res.data.profilePic)
+                console.log(res.data.major);
             })
             .catch((err) => {
                 console.log(err)
@@ -86,6 +87,15 @@ const EditUser = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        console.log( firstName,
+                    lastName,
+                    phone,
+                    officeAddress,
+                    city,
+                    major,
+                    bio,
+                    linkPic,)
+
         try {
             const response = await axios.put(`https://nodeasaltask-production.up.railway.app/api/users/edit/${id}`,
                 {

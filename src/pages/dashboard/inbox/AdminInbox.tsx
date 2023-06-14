@@ -10,7 +10,7 @@ const AdminInbox: React.FC = () => {
     const [sen, setSen] = useState({})
     const { user } = useContext(AuthContext)
     useEffect(() => {
-        axios.get(`https://nodeasaltask-production.up.railway.app/api/msg/messages/${senderId}/${reciverId}`)
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/msg/messages/18/17`)
             .then((res) => {
                 setTimeout(() => {
                     setAll(res.data)
@@ -21,7 +21,7 @@ const AdminInbox: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${reciverId}`)
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/17`)
             .then((res) => {
                 setTimeout(() => {
                     setRecInfo(res.data)
@@ -32,7 +32,7 @@ const AdminInbox: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${senderId}`)
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/18`)
             .then((res) => {
                 setTimeout(() => {
                     setSen(res.data)
@@ -44,7 +44,7 @@ const AdminInbox: React.FC = () => {
                 console.log(err)
             })
 
-    }, [])
+    }, [content])
     const { senderId, reciverId } = useParams()
     const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
@@ -53,8 +53,8 @@ const AdminInbox: React.FC = () => {
         e.preventDefault();
         try {
             await axios.post('https://nodeasaltask-production.up.railway.app/api/msg/messages', {
-                senderId,
-                receiverId: reciverId,
+                senderId: 1,
+                receiverId: 7,
                 content,
             })
                 .then((res) => {
@@ -76,7 +76,7 @@ const AdminInbox: React.FC = () => {
                     <div className="w-full px-5 flex flex-col justify-between  h-full relative">
                         <div className="flex flex-col mt-5 overflow-y-scroll h-screen">
                             {all.map((msg) => (
-                                msg.sender.id == senderId ?
+                                msg.sender.id == 1 ?
                                     <div className="flex justify-end mb-4">
                                         <div
                                             className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
