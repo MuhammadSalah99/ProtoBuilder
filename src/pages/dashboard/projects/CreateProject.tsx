@@ -83,6 +83,13 @@ const CreateProject = () => {
         setContent(e.target.value);
     };
 
+    const editProjectImages = (value: any) => {
+        console.log(id)
+        let editedImgs = fileArray.filter(item => item != value);
+        console.log(editedImgs)
+        setFileArray(editedImgs)
+
+    }
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
@@ -147,7 +154,7 @@ const CreateProject = () => {
                     </div>
                     <div className="mb-4">
 
-                        <label className="block mb-2 text-sm font-medium text-gray-900" >
+                        <label className="block mb-2 text-lg font-medium text-gray-900" >
                             Project 360 image:</label>
 
                         <img key={image360} src={image360} className='w-16 h-16 mr-6' />
@@ -160,11 +167,11 @@ const CreateProject = () => {
                     </div>
 
                     <div className="mb-4">
-
-                        <label className="block mb-2 text-sm font-medium text-gray-900" >
+                        <label className="block mb-2 text-lg font-medium text-gray-900" >
                             Project Thumbnail:</label>
+                        <img key={linkPic} src={linkPic} className='w-24 h-24 mr-6' />
+                        <p className='text-sm cursor-pointer mb-2 mt-2 ' onClick={() => setLinkPic('')}>remove image</p>
 
-                        <img key={linkPic} src={linkPic} className='w-16 h-16 mr-6' />
                         <input
                             type="file"
                             accept="image/*"
@@ -173,11 +180,15 @@ const CreateProject = () => {
                         />
                     </div>
                     <div className='mb-4'>
-                        <label className="block mb-2 text-sm font-medium text-gray-900" >
+                        <label className="block mb-2 text-lg font-medium text-gray-900" >
                             Project Gallery:</label>
                         <div className="flex mb-4">
                             {fileArray.map((url) => (
-                                <img key={url} src={url} className='w-16 h-16 mr-6' />
+                                <div className='flex flex-col mr-6'>
+                                    <img key={url} src={url} className='w-24 h-24 mr-6' />
+                                    <p className='text-sm cursor-pointer mb-2 mt-2 ' onClick={() => editProjectImages(url)}>remove image</p>
+                                </div>
+
                             ))}
                         </div>
                         <div className="form-group">
