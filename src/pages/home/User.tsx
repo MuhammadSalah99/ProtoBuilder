@@ -94,20 +94,38 @@ const User = () => {
                     <p className='text-gray-500 text-lg'>
                         {user.bio}
                     </p>
-                    <h1 className='text-white text-2xl mt-6'>Blogs <Link className='text-sm text-blue-500' to={`/blogs/all/${userId}`}>See All</Link></h1>
-                    {userBlogs.map((blog) => (
-                        <Link to={`/blogs/${blog.id}`} className="block max-w-sm p-6  my-5  border  rounded-lg shadow  bg-gray-800 border-gray-700 hover:bg-gray-700">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{blog.title}</h5>
-                            <p className="font-normal  text-gray-400">{blog.expert}</p>
-                        </Link>
-                    ))}
-                    <h1 className='text-white text-2xl mt-6'>Projects <Link className='text-sm text-blue-500' to={`/projects/all/${userId}`}>See All</Link></h1>
-                    {userProjects.map((blog) => (
-                        <Link to={`/projects/${blog.id}`} className="block max-w-sm p-6  my-2  border  rounded-lg shadow  bg-gray-800 border-gray-700 hover:bg-gray-700">
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{blog.title}</h5>
-                            <p className="font-normal text-gray-400">For: {blog.clientName}</p>
-                        </Link>
-                    ))}
+                    <h1 className='text-white text-2xl mt-6'>Blogs <Link className='text-sm text-blue-500' to={`/${userId}/dashboard/blogs/`}>See All</Link></h1>
+                    {userBlogs.length == 0 ? (
+                        <div className='w-full h-[400px] bg-gray-700 flex justify-center items-center rounded mt-3'>
+                            <p className='text-xl text-gray-100'>No Blogs </p>
+
+                        </div>
+                    ) : (
+
+                        userBlogs.map((blog) => (
+                            <Link to={`/projects/${blog.id}`} className="block max-w-sm p-6 bg-white my-5  border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.title}</h5>
+                                <p className="font-normal text-gray-700 dark:text-gray-400">For: {blog.clientName}</p>
+                            </Link>
+                        ))
+
+                    )}
+
+                    <h1 className='text-white text-2xl mt-6'>Projects <Link className='text-sm text-blue-500' to={`/${userId}/dashboard/projects`}>See All</Link></h1>
+                    {userProjects.length == 0 ? (
+                        <div className='w-full h-[400px] bg-gray-700 flex justify-center items-center rounded mt-3'>
+                            <p className='text-xl text-gray-100'>No Project</p>
+                        </div>
+                    ) : (
+
+                        userProjects.map((blog) => (
+                            <Link to={`/projects/${blog.id}`} className="block max-w-sm p-6 bg-white my-5  border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.title}</h5>
+                                <p className="font-normal text-gray-700 dark:text-gray-400">For: {blog.clientName}</p>
+                            </Link>
+                        ))
+
+                    )}
 
                 </div>
             </div>

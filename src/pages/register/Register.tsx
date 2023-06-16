@@ -15,10 +15,6 @@ const Register = () => {
         password: Yup.string().required('Password is required'),
         role: Yup.string().required('Role is required'),
         
-        major: Yup.string().required('Major is required'),
-        phone: Yup.string().required('Phone is required'),
-        officeAddress: Yup.string().required('Office Address is required'),
-        city: Yup.string().required('City is required'),
 
     });
 
