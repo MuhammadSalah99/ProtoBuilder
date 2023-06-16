@@ -25,11 +25,12 @@ const Login = () => {
     });
 
 
-   
+
     const { addUser } = useUser()
     const navigate = useNavigate()
     const { user, setUser } = useContext(AuthContext)
-   
+    const [errorMessage, setErrorMessage] = useState({ code: 200, message: 'test' })
+
 
     useEffect(() => {
         if (user) {
@@ -45,14 +46,16 @@ const Login = () => {
             addUser(userD)
             setUser(userD)
             setTimeout(() => {
-                console.log(user)
+                console.log(response.data)
                 navigate(`/${userD.id}/dashboard`)
                 navigate(0)
             }, 500)
 
 
         } catch (error) {
-            console.error('Login failed:', error);
+            setErrorMessage({ code: error.response.status, message: error.response.data })
+
+            console.error('Login failed:', error.response);
         }
     };
     const handleSubmit = formik.handleSubmit;
@@ -92,6 +95,9 @@ const Login = () => {
                                 <a href="#" className="text-sm font-medium hover:underline text-blue-500">Forgot password?</a>
                             </div>
                             <button type="submit" className="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">Sign in</button>
+                            {errorMessage.code == 401  && (
+                                <div className="text-red-500">{errorMessage.message}</div>
+                            )}
                             <p className="text-sm font-light text-gray-400">
                             </p>
                         </form>
@@ -102,5 +108,4 @@ const Login = () => {
 
     )
 }
-
 export default Login

@@ -27,7 +27,7 @@ const Register = () => {
     const { user, setUser } = useContext(AuthContext)
     const { addUser } = useUser()
 
-
+    const [errorMessage, setErrorMessage] = useState({code: 200, message: 'test'})
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -58,6 +58,7 @@ const Register = () => {
             }, 500)
 
         } catch (error) {
+            setErrorMessage({code: error.response.status, message: error.response.data.error})
             console.error('Registration failed:', error);
         }
     };
@@ -254,6 +255,10 @@ const Register = () => {
                             >
                                 Create an account
                             </button>
+                            {errorMessage.code == 409  && (
+                                <div className="text-red-500">{errorMessage.message}</div>
+                            )}
+
                             <p className="text-sm font-light text-gray-400">
                                 Already have an account?{' '}
                                 <Link to="/login" className="font-medium text-primary-600 hover:underline text-blue-500">
