@@ -130,6 +130,8 @@ const CreateBlog = () => {
 
                             <label className="block mb-2 text-sm font-medium text-gray-900" >
                                 Blog Thumbnail:</label>
+                            <img key={linkPic} src={linkPic} className='w-24 h-24 mr-6' />
+                            <p className='text-sm cursor-pointer mb-2 mt-2 ' onClick={() => setLinkPic('')}>remove image</p> 
                             <input
                                 type="file"
                                 accept="image/*"
