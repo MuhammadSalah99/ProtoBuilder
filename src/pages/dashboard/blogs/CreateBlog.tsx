@@ -5,16 +5,19 @@ import React, { useState, ChangeEvent, FormEvent, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { storage } from '../../../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-
+import { useFormik } from 'formik';
+import * as Yup from 'yup'
 const CreateBlog = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [thumbnail, setThumbanil] = useState<File | null>(null)
     const { id } = useParams()
     const [linkPic, setLinkPic] = useState('')
+    const [errorMessage, setErrorMessage] = useState({ code: 200, message: 'ok' })
     const [expert, setExpert] = useState('')
     const navigate = useNavigate()
     const editorRef = useRef(null);
+
 
     const handleThumbChange = (e: ChangeEvent<HTMLInputElement>) => {
 
@@ -52,27 +55,29 @@ const CreateBlog = () => {
         setContent(e.target.value);
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        axios.post('https://nodeasaltask-production.up.railway.app/api/blogs',
-            {
-                title: title,
-                content: content,
-                userId: id,
-                expert: expert,
-                thumbNail: linkPic
-            })
-            .then((res) => {
-                console.log(res)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-        setTimeout(() => {
-            navigate(`/${id}/dashboard`)
-            setTitle('');
-            setContent('');
-        }, 500)
+
+        try {
+            await axios.post('https://nodeasaltask-production.up.railway.app/api/blogs',
+                {
+                    title: title,
+                    content: content,
+                    userId: id,
+                    expert: expert,
+                    thumbNail: linkPic
+                })
+            setTimeout(() => {
+                navigate(`/${id}/dashboard`)
+                setTitle('');
+                setContent('');
+            }, 500)
+        }
+        catch (error) {
+            setErrorMessage({ code: error.response.status, message: error.response.data.error })
+
+            console.error(error)
+        }
     };
     return (
         <div className='flex w-full'>
@@ -105,7 +110,6 @@ const CreateBlog = () => {
                         <label className="block mb-2 font-bold">Content:</label>
                         <Editor
                             onInit={(evt, editor) => editorRef.current = editor}
-                            initialValue="<p>This is the initial content of the editor.</p>"
                             apiKey='v68lp2edzpye7f2kml792hns9oqdyp6te8e8jkkeza6gtidq'
                             init={{
                                 height: 500,
@@ -136,7 +140,10 @@ const CreateBlog = () => {
                         <button
 
                             className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                            onClick={log}>Submit</button>
+                            type='submit'>Submit</button>
+                        {errorMessage.code == 400 && (
+                            <div className="text-red-500 text-xl font-bold">{errorMessage.message}</div>
+                        )}
 
                     </div>
                 </form>

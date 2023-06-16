@@ -11,6 +11,8 @@ const CreateProject = () => {
     const [thumbnail, setThumbanil] = useState<File | null>(null)
     const [linkPic, setLinkPic] = useState('')
     const [fileArray, setFileArray] = useState([]);
+    const [errorMessage, setErrorMessage] = useState({ code: 200, message: 'ok' })
+
     const [image360, setImage360] = useState('https://firebasestorage.googleapis.com/v0/b/protostorage-cdcce.appspot.com/o/projects%2Fpaul-szewczyk-GfXqtWmiuDI-unsplash.jpg?alt=media&token=303a0c87-9bcc-42bc-98e6-528aca57e7b4')
     const { id } = useParams()
     const [userId, setUserId] = useState(id)
@@ -81,29 +83,32 @@ const CreateProject = () => {
         setContent(e.target.value);
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        axios.post('https://nodeasaltask-production.up.railway.app/api/projects',
-            {
-                title: title,
-                content: content,
-                userId: userId,
-                thumbNail: linkPic,
-                projectImages: fileArray,
-                image360: image360,
-                clientName: clinetName
-            })
-            .then((res) => {
-                console.log(res)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-        setTimeout(() => {
-            navigate(`/${id}/dashboard`)
-            setTitle('');
-            setContent('');
-        }, 500)
+        try {
+            await axios.post('https://nodeasaltask-production.up.railway.app/api/projects',
+                {
+                    title: title,
+                    content: content,
+                    userId: userId,
+                    thumbNail: linkPic,
+                    projectImages: fileArray,
+                    image360: image360,
+                    clientName: clinetName
+                })
+            setTimeout(() => {
+                navigate(`/${id}/dashboard`)
+                setTitle('');
+                setContent('');
+            }, 500)
+        }
+        catch (error) {
+            setErrorMessage({ code: error.response.status, message: error.response.data.error })
+
+
+            console.log(error)
+        }
+
     };
     return (
         <div className='flex w-full h-fit'>
@@ -186,6 +191,10 @@ const CreateProject = () => {
                     >
                         Submit
                     </button>
+                    {errorMessage.code == 400 && (
+                        <div className="text-red-500 text-xl font-bold">{errorMessage.message}</div>
+                    )}
+
                 </form>
             </div>
         </div>
