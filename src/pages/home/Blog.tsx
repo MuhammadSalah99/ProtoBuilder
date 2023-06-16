@@ -26,7 +26,7 @@ const Blog = () => {
                 <h1 className='text-3xl text-white'>{blog.title}</h1>
                 <span className='mb-3 font-normal text-gray-400'>By:{blog.user ? <span> {blog.user.firstName} {blog.user.lastName}</span> : ''}  </span>
                 <p className="mb-3 font-normal text-gray-400">{blog.expert}</p>
-                <img className="object-cover mt-3 w-full" src={blog.thumbNail} alt="" />
+                <img className="object-cover mt-3 w-full h-[350px]" src={blog.thumbNail} alt="" />
                 <div className='text-white mt-10 [&>p]:mb-5 text-lg' dangerouslySetInnerHTML={{ __html: blog.content }} />
             </div>
             <Footer />

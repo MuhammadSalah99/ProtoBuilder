@@ -5,8 +5,6 @@ import React, { useState, ChangeEvent, FormEvent, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { storage } from '../../../firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { useFormik } from 'formik';
-import * as Yup from 'yup'
 const CreateBlog = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -142,7 +140,7 @@ const CreateBlog = () => {
                         <button
 
                             className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                            type='submit'>Submit</button>
+                            onClick={log}>Submit</button>
                         {errorMessage.code == 400 && (
                             <div className="text-red-500 text-xl font-bold">{errorMessage.message}</div>
                         )}
