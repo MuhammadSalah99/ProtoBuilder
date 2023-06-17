@@ -64,9 +64,9 @@ const User = () => {
 
                 <div className="w-1/4 h-[350px] pl-6   rounded-lg shadow border  bg-gray-800 border-gray-700 flex-col flex justify-between pb-10">
                     <div className='w-full flex mt-8 h-16  items-center  pt-8'>
-                        <img className="object-cover w-[80px] h-[80px] rounded-lg " src={user.profilePic} alt="" />
+                        <img className="object-cover w-[80px] h-[80px] rounded-lg " src={eng.profilePic} alt="" />
                     </div>
-                    <h1 className='text-white font-bold'>{user.firstName} {user.lastName}</h1>
+                    <h1 className='text-white font-bold'>{eng.firstName} {eng.lastName}</h1>
                     <div className=' w-full flex flex-col'>
                         <p className='flex w-[60%] text-sm   items-center text-gray-500'>
                             <svg className='text-white w-4 h-4 mr-1' aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -103,7 +103,7 @@ const User = () => {
                     <p className='text-gray-500 text-lg'>
                         {eng.bio}
                     </p>
-                    <h1 className='text-white text-2xl mt-6'>Blogs <Link className='text-sm text-blue-500' to={`/${userId}/dashboard/blogs/`}>See All</Link></h1>
+                    <h1 className='text-white text-2xl mt-6'>Blogs <Link className='text-sm text-blue-500' to={`/blogs/all/${userId}`}>See All</Link></h1>
                     {userBlogs.length == 0 ? (
                         <div className='w-full h-[400px] bg-gray-700 flex justify-center items-center rounded mt-3'>
                             <p className='text-xl text-gray-100'>No Blogs </p>
@@ -120,7 +120,7 @@ const User = () => {
 
                     )}
 
-                    <h1 className='text-white text-2xl mt-6'>Projects <Link className='text-sm text-blue-500' to={`/${userId}/dashboard/projects`}>See All</Link></h1>
+                    <h1 className='text-white text-2xl mt-6'>Projects <Link className='text-sm text-blue-500' to={`/projects/all/${userId}`}>See All</Link></h1>
                     {userProjects.length == 0 ? (
                         <div className='w-full h-[400px] bg-gray-700 flex justify-center items-center rounded mt-3'>
                             <p className='text-xl text-gray-100'>No Project</p>
