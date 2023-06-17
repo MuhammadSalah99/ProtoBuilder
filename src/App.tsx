@@ -109,6 +109,10 @@ function App() {
             element: <PrivateRoute element={<AdminInbox />} />
         },
         {
+            path: '/:id/dashboard/inbox/:cId',
+            element: <PrivateRoute element={<AdminInbox />} />
+        },
+        {
             path: "/explore",
             element: <Home />
         },

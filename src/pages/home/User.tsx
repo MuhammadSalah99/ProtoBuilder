@@ -1,19 +1,21 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext'
 import Footer from './utility/Footer'
 import Navbar from './utility/Navbar'
 const User = () => {
     const { userId } = useParams()
-    const [user, setUser] = useState({})
+    const { user } = useContext(AuthContext)
+    const [eng, setEng] = useState({})
     const [userBlogs, setUserBlogs] = useState([])
     const [userProjects, setUserProjects] = useState([])
     useEffect(() => {
         setTimeout(() => {
             axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${userId}`)
                 .then((res) => {
-                    setUser(res.data)
-                    console.log(user)
+                    setEng(res.data)
+                    console.log(eng)
                 })
                 .catch((err) => { console.log(err) })
             axios.get(`https://nodeasaltask-production.up.railway.app/api/blogs/by/${userId}`)
@@ -28,7 +30,7 @@ const User = () => {
             axios.get(`https://nodeasaltask-production.up.railway.app/api/projects/by/${userId}`)
                 .then((res) => {
                     console.log(res.data)
-
+                    console.log('test')
                     setUserProjects(res.data)
                     console.log(userBlogs)
 
@@ -71,19 +73,26 @@ const User = () => {
                                 <path clip-rule="evenodd" d="M6 3.75A2.75 2.75 0 018.75 1h2.5A2.75 2.75 0 0114 3.75v.443c.572.055 1.14.122 1.706.2C17.053 4.582 18 5.75 18 7.07v3.469c0 1.126-.694 2.191-1.83 2.54-1.952.599-4.024.921-6.17.921s-4.219-.322-6.17-.921C2.694 12.73 2 11.665 2 10.539V7.07c0-1.321.947-2.489 2.294-2.676A41.047 41.047 0 016 4.193V3.75zm6.5 0v.325a41.622 41.622 0 00-5 0V3.75c0-.69.56-1.25 1.25-1.25h2.5c.69 0 1.25.56 1.25 1.25zM10 10a1 1 0 00-1 1v.01a1 1 0 001 1h.01a1 1 0 001-1V11a1 1 0 00-1-1H10z" fill-rule="evenodd"></path>
                                 <path d="M3 15.055v-.684c.126.053.255.1.39.142 2.092.642 4.313.987 6.61.987 2.297 0 4.518-.345 6.61-.987.135-.041.264-.089.39-.142v.684c0 1.347-.985 2.53-2.363 2.686a41.454 41.454 0 01-9.274 0C3.985 17.585 3 16.402 3 15.055z"></path>
                             </svg>
-                            {user.major}
+                            {eng.major}
                         </p>
                         <p className='flex w-[60%] text-sm  mt-3 items-center text-gray-500'>
                             <svg className='text-white w-4 h-4 mr-1' aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path clip-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" fill-rule="evenodd"></path>
                             </svg>
-                            {user.city} - {user.officeAddress}
+                            {eng.city} - {eng.officeAddress}
                         </p>
 
                     </div>
-                    <div className='w-full '>
+                    <div className='w-full relative '>
                         <p className='text-gray-600'>Phone</p>
-                        <p className='text-white'>{user.phone}</p>
+                        <p className='text-white'>{eng.phone}</p>
+                        <Link to={`/${user.id}/message/${eng.id}`} type="button" className="text-white absolute right-3 bottom-1 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 bg-transparent hover:bg-blue-700 focus:ring-blue-800">
+                            <svg aria-hidden="true" className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd" d="M10 2c-2.236 0-4.43.18-6.57.524C1.993 2.755 1 4.014 1 5.426v5.148c0 1.413.993 2.67 2.43 2.902.848.137 1.705.248 2.57.331v3.443a.75.75 0 001.28.53l3.58-3.579a.78.78 0 01.527-.224 41.202 41.202 0 005.183-.5c1.437-.232 2.43-1.49 2.43-2.903V5.426c0-1.413-.993-2.67-2.43-2.902A41.289 41.289 0 0010 2zm0 7a1 1 0 100-2 1 1 0 000 2zM8 8a1 1 0 11-2 0 1 1 0 012 0zm5 1a1 1 0 100-2 1 1 0 000 2z" fill-rule="evenodd"></path>
+                            </svg>
+                            <span className="sr-only">Icon description</span>
+                        </Link>
+
                     </div>
 
                 </div>
@@ -92,7 +101,7 @@ const User = () => {
                 <div className="w-[60%] ml-16  rounded-lg p-10 shadow border bg-gray-800 border-gray-700 h-fit">
                     <h1 className='text-white text-2xl'>About</h1>
                     <p className='text-gray-500 text-lg'>
-                        {user.bio}
+                        {eng.bio}
                     </p>
                     <h1 className='text-white text-2xl mt-6'>Blogs <Link className='text-sm text-blue-500' to={`/${userId}/dashboard/blogs/`}>See All</Link></h1>
                     {userBlogs.length == 0 ? (

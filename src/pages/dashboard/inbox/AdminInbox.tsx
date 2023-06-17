@@ -1,16 +1,49 @@
 import axios from 'axios';
-import React, { useState, ChangeEvent, FormEvent, useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, ChangeEvent, FormEvent, useContext, useEffect, useRef } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import Navbar from '../utility/navbar'
 const AdminInbox: React.FC = () => {
     const [content, setContent] = useState('');
+    const chatContainerRef = useRef(null);
     const [recInfo, setRecInfo] = useState({})
     const [all, setAll] = useState([])
+    const [clients, setClients] = useState([])
     const [sen, setSen] = useState({})
     const { user } = useContext(AuthContext)
+
+    const { cId } = useParams()
+   
+    const messageEl = useRef(null);
     useEffect(() => {
-        axios.get(`https://nodeasaltask-production.up.railway.app/api/msg/messages/18/17`)
+        if (messageEl) {
+            messageEl.current.addEventListener('DOMNodeInserted', event => {
+                const { currentTarget: target } = event;
+                target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+            });
+        }
+    }, [])
+    useEffect(() => {
+        console.log(cId)
+        if (!user) {
+            navigate("/")
+
+        }
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get('https://nodeasaltask-production.up.railway.app/api/users/clients');
+                setClients(response.data);
+                console.log(clients)
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        setTimeout(() => {
+            fetchUsers();
+            console.log('test')
+        }, 1000)
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/msg/messages/${user.id}/${cId}`)
             .then((res) => {
                 setTimeout(() => {
                     setAll(res.data)
@@ -21,7 +54,7 @@ const AdminInbox: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/17`)
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${cId}`)
             .then((res) => {
                 setTimeout(() => {
                     setRecInfo(res.data)
@@ -32,7 +65,7 @@ const AdminInbox: React.FC = () => {
             .catch((err) => {
                 console.log(err)
             })
-        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/18`)
+        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${user.id}`)
             .then((res) => {
                 setTimeout(() => {
                     setSen(res.data)
@@ -44,18 +77,19 @@ const AdminInbox: React.FC = () => {
                 console.log(err)
             })
 
-    }, [content])
-    const { senderId, reciverId } = useParams()
+
+    }, [content, all]);
     const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+
         try {
             await axios.post('https://nodeasaltask-production.up.railway.app/api/msg/messages', {
-                senderId: 1,
-                receiverId: 7,
-                content,
+                senderId: user.id,
+                receiverId: cId,
+                content: content,
             })
                 .then((res) => {
                     console.log('Message sent successfully');
@@ -73,10 +107,23 @@ const AdminInbox: React.FC = () => {
             <Navbar />
             <div className="container mx-auto shadow-lg rounded-lg h-screen">
                 <div className="flex flex-row justify-between   bg-gray-800 h-full">
+                    <div className='w-1/5 h-full flex flex-col mt-20 ml-3'>
+                        {clients.map((eng) => (
+                            <Link to={`/${user.id}/dashboard/inbox/${eng.id}`} className='mb-3'>
+                                <div className='w-full h-[100px] flex bg-gray-600 mb-1 mt-2 rounded-lg pl-3 pt-4'>
+
+                                    <div className='justify-center '>
+                                        <p className='text-white '>{eng.userName}</p>
+                                        <p className='text-gray-300 text-sm mt-1'>{eng.email}</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
                     <div className="w-full px-5 flex flex-col justify-between  h-full relative">
-                        <div className="flex flex-col mt-5 overflow-y-scroll h-screen">
+                        <div ref={messageEl} className="flex flex-col mt-5 overflow-y-scroll h-screen" >
                             {all.map((msg) => (
-                                msg.sender.id == 1 ?
+                                msg.sender.id == user.id ?
                                     <div className="flex justify-end mb-4">
                                         <div
                                             className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"

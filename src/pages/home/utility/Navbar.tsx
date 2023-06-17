@@ -40,7 +40,7 @@ const Navbar = () => {
                             <Link to="/explore" className={`block ${explore ? 'text-blue-500' : 'text-white'} py-2 pl-3 pr-4  bg-blue-700 rounded md:bg-transparent  md:p-0 `} aria-current="page">Explore</Link>
                         </li>
                         <li>
-                            <Link to="/text" className={`block ${textMatch ? 'text-blue-500' : 'text-white'} py-2 pl-3 pr-4 rounded  md:p-0  md:hover:text-blue-500 hover:bg-gray-700  md:hover:bg-transparent border-gray-700`}>Messages</Link>
+                            <Link to={`/${user.id}/message/3`} className={`block ${textMatch ? 'text-blue-500' : 'text-white'} py-2 pl-3 pr-4 rounded  md:p-0  md:hover:text-blue-500 hover:bg-gray-700  md:hover:bg-transparent border-gray-700`}>Messages</Link>
                         </li>
                         <li>
                             <Link to="/projects" className={`block ${projectMatch ? 'text-blue-500' : 'text-white'} py-2 pl-3 pr-4 rounded  md:p-0  md:hover:text-blue-500 hover:bg-gray-700  md:hover:bg-transparent border-gray-700`}>Projects</Link>

@@ -1,52 +1,77 @@
 import axios from 'axios';
-import React, { useState, ChangeEvent, FormEvent, useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState,useRef,  ChangeEvent, FormEvent, useContext, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
 import Navbar from '../../home/utility/Navbar';
 
 const SendMessages: React.FC = () => {
     const [content, setContent] = useState('');
     const [recInfo, setRecInfo] = useState({})
+    const [engs, setEngs] = useState([])
     const [all, setAll] = useState([])
     const [sen, setSen] = useState({})
+    const messageEl = useRef(null);
+    useEffect(() => {
+        if (messageEl) {
+            messageEl.current.addEventListener('DOMNodeInserted', event => {
+                const { currentTarget: target } = event;
+                target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+            });
+        }
+    }, [])
+
+    const { senderId, reciverId } = useParams()
     const { user } = useContext(AuthContext)
     useEffect(() => {
-        axios.get(`https://nodeasaltask-production.up.railway.app/api/msg/messages/${senderId}/${reciverId}`)
-            .then((res) => {
-                setTimeout(() => {
-                    setAll(res.data)
-                    console.log(res.data)
-                }, 100)
-            })
 
-            .catch((err) => {
-                console.log(err)
-            })
-        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${reciverId}`)
-            .then((res) => {
-                setTimeout(() => {
-                    setRecInfo(res.data)
-                    console.log(res.data)
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get('https://nodeasaltask-production.up.railway.app/api/users/');
+                setEngs(response.data);
+                console.log(engs)
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        setTimeout(() => {
+            fetchUsers();
+            console.log(senderId, reciverId)
+            axios.get(`https://nodeasaltask-production.up.railway.app/api/msg/messages/${senderId}/${reciverId}`)
+                .then((res) => {
+                    setTimeout(() => {
+                        setAll(res.data)
+                        console.log(res.data)
+                    }, 100)
+                })
 
-                }, 100)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-        axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${senderId}`)
-            .then((res) => {
-                setTimeout(() => {
-                    setSen(res.data)
-                    console.log(res.data)
+                .catch((err) => {
+                    console.log(err)
+                })
+            axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${reciverId}`)
+                .then((res) => {
+                    setTimeout(() => {
+                        setRecInfo(res.data)
+                        console.log(res.data)
 
-                }, 100)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+                    }, 100)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            axios.get(`https://nodeasaltask-production.up.railway.app/api/users/${senderId}`)
+                .then((res) => {
+                    setTimeout(() => {
+                        setSen(res.data)
+                        console.log(res.data)
 
-    }, [content])
-    const { senderId, reciverId } = useParams()
+                    }, 100)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+
+        }, 500)
+    }, [content, reciverId, all])
     const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
@@ -54,9 +79,9 @@ const SendMessages: React.FC = () => {
         e.preventDefault();
         try {
             await axios.post('https://nodeasaltask-production.up.railway.app/api/msg/messages', {
-                senderId,
+                senderId: senderId,
                 receiverId: reciverId,
-                content,
+                content: content
             })
                 .then((res) => {
                     console.log('Message sent successfully');
@@ -73,8 +98,26 @@ const SendMessages: React.FC = () => {
         <div className="container mx-auto shadow-lg rounded-lg h-screen">
             <Navbar />
             <div className="flex flex-row justify-between h-[92vh]  bg-gray-800">
+                <div className='w-1/5 h-full flex flex-col'>
+                    {engs.map((eng) => (
+                        <Link to={`/${senderId}/message/${eng.id}`} className='mb-3'>
+                            <div className='w-full h-[100px] flex bg-gray-600 mb-1 mt-2 rounded-lg pl-3 pt-4'>
+
+                                <img
+                                    src={eng.profilePic}
+                                    className="object-cover h-8 w-8 rounded-full mr-4"
+                                    alt=""
+                                />
+                                <div className='justify-center '>
+                                    <p className='text-white '>{eng.firstName} {eng.lastName}</p>
+                                    <p className='text-gray-300 text-sm mt-1'>{eng.major}</p>
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
                 <div className="w-full px-5 flex flex-col justify-between  h-full relative">
-                    <div className="flex flex-col mt-5 overflow-y-scroll h-screen">
+                    <div ref={messageEl} className="flex flex-col mt-5 overflow-y-scroll h-screen">
                         {all.map((msg) => (
                             msg.sender.id == senderId ?
                                 <div className="flex justify-end mb-4">
